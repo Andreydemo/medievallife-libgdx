@@ -1,6 +1,7 @@
 package com.demosoft.game.medievallife;
 
 import com.badlogic.gdx.math.Vector2;
+import com.demosoft.game.medievallife.core.AbstractGameObject;
 
 public class Chunk {
 
@@ -11,12 +12,14 @@ public class Chunk {
 	private int diagonalLenght;
 	private Vector2 firstPointIn;
 	private Vector2 centre;
+	private Vector2 sizeInWorld; 
 
 	public Chunk(int x, int y, int height, int width) {
 		this.x = x;
 		this.y = y;
 		this.height = height;
 		this.width = width;
+		this.sizeInWorld = new Vector2(AbstractGameObject.SCREEN_WIDTH * width, AbstractGameObject.SCREEN_HEIGHT * height);
 	}
 
 	public int getX() {
@@ -80,6 +83,14 @@ public class Chunk {
 
 	public void setCentre(Vector2 centre) {
 		this.centre = centre;
+	}
+
+	public Vector2 getSizeInWorld() {
+		return sizeInWorld;
+	}
+
+	public void setSizeInWorld(Vector2 sizeInWorld) {
+		this.sizeInWorld = sizeInWorld;
 	}
 
 }

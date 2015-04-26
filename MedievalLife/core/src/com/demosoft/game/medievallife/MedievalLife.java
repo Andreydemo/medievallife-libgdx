@@ -1,13 +1,14 @@
 package com.demosoft.game.medievallife;
 
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.math.Vector3;
 import com.demosoft.game.medievallife.spring.SpringTools;
 
-public class MedievalLife extends ApplicationAdapter {
+public class MedievalLife extends Game {
 
 	private ContextConteiner context;
 
