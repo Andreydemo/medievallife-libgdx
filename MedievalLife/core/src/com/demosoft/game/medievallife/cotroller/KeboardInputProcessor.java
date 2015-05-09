@@ -7,6 +7,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.demosoft.game.medievallife.ContextConteiner;
+import com.demosoft.game.medievallife.DebugScene;
+import com.demosoft.game.medievallife.spring.SpringTools;
 
 @Component
 public class KeboardInputProcessor implements InputProcessor {
@@ -16,6 +19,12 @@ public class KeboardInputProcessor implements InputProcessor {
 
 	@Autowired
 	private CameraManager cameraManager;
+
+	@Autowired
+	private FlagController flags;
+
+	@Autowired
+	private ContextConteiner context;
 
 	public KeboardInputProcessor() {
 	}
@@ -37,6 +46,13 @@ public class KeboardInputProcessor implements InputProcessor {
 		if (Gdx.input.isKeyPressed(Input.Keys.D)) {
 			cameraManager.moveRight();
 		}
+		if (Gdx.input.isKeyJustPressed(Input.Keys.TAB)) {
+			if (!flags.debugEnabled) {
+				context.saveActiveScene();
+				context.getGame().setScreen(SpringTools.getBean(DebugScene.class));
+				flags.debugEnabled = true;
+			}
+		}
 
 	}
 
@@ -50,7 +66,7 @@ public class KeboardInputProcessor implements InputProcessor {
 			cameraManager.decZoom();
 			break;
 		default:
-			System.out.println("unprocessed keycode:" + keycode);
+			//System.out.println("unprocessed keycode:" + keycode);
 			break;
 		}
 		return false;
@@ -63,7 +79,6 @@ public class KeboardInputProcessor implements InputProcessor {
 
 	@Override
 	public boolean keyTyped(char character) {
-		System.out.println((int) character);
 		return false;
 	}
 

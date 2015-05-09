@@ -1,14 +1,12 @@
 package com.demosoft.game.medievallife;
 
-import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.math.Vector3;
+import com.demosoft.game.medievallife.core.AbstarctGame;
 import com.demosoft.game.medievallife.spring.SpringTools;
 
-public class MedievalLife extends Game {
+public class MedievalLife extends AbstarctGame {
 
 	private ContextConteiner context;
 
@@ -16,23 +14,13 @@ public class MedievalLife extends Game {
 	public void create() {// b2-0-1
 		SpringTools.initContext();
 		context = SpringTools.getBean(ContextConteiner.class);
+		context.setGame(this);
+		SpringTools.postInit();
+		setScreen(SpringTools.getBean(LoadingScreen.class));
 
 	}
 
-	@Override
-	public void render() {
-		Gdx.gl.glClearColor(getRgbColorValue(135), getRgbColorValue(206), getRgbColorValue(250), 0);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		context.getCamera().update();
-		context.getBatch().setProjectionMatrix(context.getCamera().combined);
-		context.getBatch().begin();
-		context.getInputProcessor().processKeyPressed();
-		context.getRenderingManager().render();
-		drawScene();
-		drawFps();
-		drawZoom();
-		context.getBatch().end();
-	}
+	
 
 	public void drawScene() {
 		if (Gdx.input.isTouched()) {
@@ -47,7 +35,11 @@ public class MedievalLife extends Game {
 
 	@Override
 	public void resize(int width, int height) {
+		System.out.println("game resize");
+		Gdx.graphics.setDisplayMode(width, height, Gdx.graphics.isFullscreen());
+		this.create();
 		context.getViewport().update(width, height);
+		context.getCamera().update();
 	}
 
 	public float translateY(int y) {

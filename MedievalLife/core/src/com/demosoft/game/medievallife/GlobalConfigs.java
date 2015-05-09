@@ -8,7 +8,6 @@ public class GlobalConfigs {
 	private String blockSpritesPath;
 	
 	public GlobalConfigs() {
-		System.out.println("globalConfigs inited");
 	}
 
 	public String getBlockSpritesPath() {

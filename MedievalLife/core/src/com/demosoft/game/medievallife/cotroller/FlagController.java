@@ -6,5 +6,7 @@ import org.springframework.stereotype.Component;
 public class FlagController {
 
 	public boolean isMenu = false;
+	
+	public boolean debugEnabled = false;
 
 }

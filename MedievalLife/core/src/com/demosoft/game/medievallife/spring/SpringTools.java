@@ -4,11 +4,16 @@ import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.demosoft.game.medievallife.MenuScene;
+
 public class SpringTools {
 	private static ApplicationContext context;
 
 	public static void initContext() {
 		context = new ClassPathXmlApplicationContext("appContext.xml");
+	}
+	public static void postInit(){
+		///context.getBean(MenuScene.class).postInit();
 	}
 
 	public static Object getBean(String name) throws BeansException {

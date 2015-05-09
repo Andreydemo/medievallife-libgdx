@@ -2,7 +2,9 @@ package com.demosoft.game.medievallife.cotroller;
 
 import org.springframework.stereotype.Component;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.demosoft.game.medievallife.core.IsometricCamera;
 
 @Component
@@ -15,9 +17,9 @@ public class CameraManager {
 	public static final float minZoom = 1.5f;
 	public static final float zoomStep = 1.05f;
 	private boolean blocked = false;
+	private boolean flipped = false;
 
 	public CameraManager() {
-		System.out.println("manager");
 	}
 
 	public Vector2 getCamermove() {
@@ -40,6 +42,13 @@ public class CameraManager {
 		camera.translate(6, 0);
 	}
 
+	public void flipCamera(boolean flip) {
+		Vector3 oldPos = new Vector3(camera.position);
+		camera.setToOrtho(flip, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		camera.position.set(oldPos);
+		flipped = flip;
+	}
+
 	public void moveTop() {
 		if (camera.position.y > camera.viewportHeight / 2 || !blocked) {
 			camera.translate(0, -6);
@@ -51,7 +60,7 @@ public class CameraManager {
 	}
 
 	public void moveLeft() {
-		if (camera.position.x > camera.viewportWidth / 2 ||  !blocked) {
+		if (camera.position.x > camera.viewportWidth / 2 || !blocked) {
 			camera.translate(-6, 0);
 		}
 	}
@@ -70,6 +79,14 @@ public class CameraManager {
 		if (zoom < minZoom) {
 			camera.zoom = zoom;
 		}
+	}
+
+	public boolean isFlipped() {
+		return flipped;
+	}
+
+	public void setFlipped(boolean flipped) {
+		this.flipped = flipped;
 	}
 
 }

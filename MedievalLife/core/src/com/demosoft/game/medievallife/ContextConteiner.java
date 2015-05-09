@@ -1,5 +1,7 @@
 package com.demosoft.game.medievallife;
 
+import java.nio.ByteBuffer;
+
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,11 +10,17 @@ import org.springframework.stereotype.Component;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.demosoft.game.medievallife.core.AbstarctGame;
 import com.demosoft.game.medievallife.core.IsometricCamera;
+import com.demosoft.game.medievallife.core.log.LogLevel;
+import com.demosoft.game.medievallife.core.log.Logger;
 import com.demosoft.game.medievallife.cotroller.CameraManager;
 import com.demosoft.game.medievallife.cotroller.KeboardInputProcessor;
 
@@ -25,8 +33,15 @@ public class ContextConteiner {
 	private SpriteBatch batch;
 	public static final String BACKGROUND_SPRITE_ID = "b2-0-1";
 	private BitmapFont font;
-	
+	private AbstarctGame game;
+	private IActivityRequestHandler handler;
+	private boolean soundEnabled = true;
+	private float soundVolume = 0;
+
 	private boolean flipped = true;
+
+	private Screen activeScene;
+	private Pixmap activeSceneShot;
 
 	@Autowired
 	private KeboardInputProcessor inputProcessor;
@@ -36,6 +51,8 @@ public class ContextConteiner {
 	private CameraManager cameraManager;
 	@Autowired
 	private RenderingManager renderingManager;
+	@Autowired
+	private Logger logger;
 
 	public ContextConteiner() {
 		batch = new SpriteBatch();
@@ -44,12 +61,13 @@ public class ContextConteiner {
 
 	@PostConstruct
 	public void init() {
-		font  = new BitmapFont(true);
+		font = new BitmapFont(true);
 		camera = cameraManager.getCamera();
 		camera.setToOrtho(true, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		viewport = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), camera);
 		inputProcessor.setCamera(camera);
 		addInputProcessor(inputProcessor);
+		logger.setCurrentLevel(LogLevel.INFO);
 	}
 
 	/**
@@ -65,6 +83,35 @@ public class ContextConteiner {
 		}
 		inpMulPlex.addProcessor(processor);
 		Gdx.input.setInputProcessor(inpMulPlex);
+	}
+	
+	 private static Pixmap getScreenshot(int x, int y, int w, int h, boolean yDown){
+	        final Pixmap pixmap = ScreenUtils.getFrameBufferPixmap(x, y, w, h);
+
+	        if (yDown) {
+	            // Flip the pixmap upside down
+	            ByteBuffer pixels = pixmap.getPixels();
+	            int numBytes = w * h * 4;
+	            byte[] lines = new byte[numBytes];
+	            int numBytesPerLine = w * 4;
+	            for (int i = 0; i < h; i++) {
+	                pixels.position((h - i - 1) * numBytesPerLine);
+	                pixels.get(lines, i * numBytesPerLine, numBytesPerLine);
+	            }
+	            pixels.clear();
+	            pixels.put(lines);
+	        }
+
+	        return pixmap;
+	    }
+
+	public void saveActiveScene() {
+		activeScene = game.getScreen();
+		activeSceneShot = getScreenshot(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), true);
+	}
+
+	public void loadActiveScene() {
+		game.setScreen(activeScene);
 	}
 
 	public InputMultiplexer getInpMulPlex() {
@@ -107,7 +154,6 @@ public class ContextConteiner {
 		this.spritesLoader = spritesLoader;
 	}
 
-
 	public KeboardInputProcessor getInputProcessor() {
 		return inputProcessor;
 	}
@@ -146,6 +192,54 @@ public class ContextConteiner {
 
 	public void setFont(BitmapFont font) {
 		this.font = font;
+	}
+
+	public AbstarctGame getGame() {
+		return game;
+	}
+
+	public void setGame(AbstarctGame game) {
+		this.game = game;
+	}
+
+	public IActivityRequestHandler getHandler() {
+		return handler;
+	}
+
+	public void setHandler(IActivityRequestHandler handler) {
+		this.handler = handler;
+	}
+
+	public boolean isSoundEnabled() {
+		return soundEnabled;
+	}
+
+	public void setSoundEnabled(boolean soundEnabled) {
+		this.soundEnabled = soundEnabled;
+	}
+
+	public float getSoundVolume() {
+		return soundVolume;
+	}
+
+	public void setSoundVolume(float soundVolume) {
+		this.soundVolume = soundVolume;
+	}
+
+	public Screen getActiveScene() {
+		return activeScene;
+	}
+
+	public void setActiveScene(Screen activeScene) {
+		this.activeScene = activeScene;
+	}
+
+	public Pixmap getActiveSceneShot() {
+		return activeSceneShot;
+	}
+
+	public void setActiveSceneShot(Pixmap activeSceneShot) {
+		this.activeSceneShot = activeSceneShot;
 	}
 
 }
