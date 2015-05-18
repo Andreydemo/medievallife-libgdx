@@ -1,6 +1,6 @@
 android {
     buildToolsVersion "22.0.1"
-    compileSdkVersion 20
+    compileSdkVersion 19
     sourceSets {
         main {
             manifest.srcFile 'AndroidManifest.xml'
@@ -13,6 +13,16 @@ android {
 
         instrumentTest.setRoot('tests')
     }
+	 packagingOptions {
+     exclude 'META-INF/spring.handlers'
+	 exclude 'META-INF/spring.schemas'
+	 exclude 'META-INF/spring.tooling'
+	 exclude 'META-INF/notice.txt'
+	 exclude 'META-INF/license.txt'
+   }
+    lintOptions {
+      disable 'InvalidPackage'
+ }
 }
 
 // needed to add JNI shared libraries to APK when compiling on CLI
@@ -34,6 +44,9 @@ task copyAndroidNatives() {
         if(jar.name.endsWith("natives-armeabi-v7a.jar")) outputDir = file("libs/armeabi-v7a")
         if(jar.name.endsWith("natives-armeabi.jar")) outputDir = file("libs/armeabi")
         if(jar.name.endsWith("natives-x86.jar")) outputDir = file("libs/x86")
+		logger.info('dirrrrrrrrrrrrrrrrrrrrrrrrrrrrr')
+		logger.info(outputDir.toString())
+		logger.info(jar.name)
         if(outputDir != null) {
             copy {
                 from zipTree(jar)
@@ -77,8 +90,8 @@ eclipse {
     }
 
     jdt {
-        sourceCompatibility = 1.6
-        targetCompatibility = 1.6
+        sourceCompatibility = 1.7
+        targetCompatibility = 1.7
     }
 
     classpath {

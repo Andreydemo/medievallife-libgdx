@@ -9,10 +9,10 @@ public class DesktopLauncher {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.setFromDisplayMode(LwjglApplicationConfiguration.getDesktopDisplayMode());
 		config.fullscreen = false;
-		config.width = 1366;
-		config.height = 768;
-		// config.vSyncEnabled = false;// if set to true the FPS is locked to 60
-		// config.foregroundFPS = 1000;// don't lock FPS
+		config.width = 800;
+		config.height = 600;
+		config.vSyncEnabled = false;// if set to true the FPS is locked to 60
+		config.foregroundFPS = 1000;// don't lock FPS
 		new LwjglApplication(new MedievalLife(), config);
 	}
 }

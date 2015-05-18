@@ -59,7 +59,7 @@ public class MenuScene extends BaseScene {
 		System.out.println(screenBg.getX() + " " + screenBg.getY() + "; " + screenBg.getWidth() + " " + screenBg.getHeight());
 	}
 
-	public MenuScene(ContextConteiner context) {
+	public MenuScene(final ContextConteiner context) {
 		this.context = context;
 
 		if (context.getGame().isAndroid()) {
