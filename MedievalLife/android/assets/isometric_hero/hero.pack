@@ -1,0 +1,174 @@
+
+clothes_processed.png
+size: 6000,1500
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+hero-stay-left-0
+  rotate: false
+  xy: 58, 53
+  size: 81, 100
+  orig: 81, 100
+  offset: 0, 0
+  index: -1
+hero-stay-left-1
+  rotate: false
+  xy: 250, 53
+  size: 81, 100
+  orig: 81, 100
+  offset: 0, 0
+  index: -1
+hero-stay-left-2
+  rotate: false
+  xy: 442, 53
+  size: 81, 100
+  orig: 81, 100
+  offset: 0, 0
+  index: -1
+hero-stay-left-3
+  rotate: false
+  xy: 634, 53
+  size: 81, 100
+  orig: 81, 100
+  offset: 0, 0
+  index: -1
+hero-run-left-0
+  rotate: false
+  xy: 831, 53
+  size: 81, 100
+  orig: 81, 100
+  offset: 0, 0
+  index: -1
+hero-run-left-1
+  rotate: false
+  xy: 1026, 53
+  size: 81, 100
+  orig: 81, 100
+  offset: 0, 0
+  index: -1
+hero-run-left-2
+  rotate: false
+  xy: 1220, 53
+  size: 81, 100
+  orig: 81, 100
+  offset: 0, 0
+  index: -1
+hero-run-left-3
+  rotate: false
+  xy: 1412, 53
+  size: 81, 100
+  orig: 81, 100
+  offset: 0, 0
+  index: -1
+hero-run-left-4
+  rotate: false
+  xy: 1603, 53
+  size: 81, 100
+  orig: 81, 100
+  offset: 0, 0
+  index: -1
+hero-run-left-5
+  rotate: false
+  xy: 1797, 53
+  size: 81, 100
+  orig: 81, 100
+  offset: 0, 0
+  index: -1
+hero-run-left-6
+  rotate: false
+  xy: 1989, 53
+  size: 81, 100
+  orig: 81, 100
+  offset: 0, 0
+  index: -1
+hero-run-left-7
+  rotate: false
+  xy: 2177, 53
+  size: 81, 100
+  orig: 81, 100
+  offset: 0, 0
+  index: -1
+hero-stay-up-0
+  rotate: false
+  xy: 58, 444
+  size: 81, 100
+  orig: 81, 100
+  offset: 0, 0
+  index: -1
+hero-stay-up-1
+  rotate: false
+  xy: 250, 444
+  size: 81, 100
+  orig: 81, 100
+  offset: 0, 0
+  index: -1
+hero-stay-up-2
+  rotate: false
+  xy: 442, 444
+  size: 81, 100
+  orig: 81, 100
+  offset: 0, 0
+  index: -1
+hero-stay-up-3
+  rotate: false
+  xy: 634, 444
+  size: 81, 100
+  orig: 81, 100
+  offset: 0, 0
+  index: -1
+hero-run-up-0
+  rotate: false
+  xy: 824, 444
+  size: 81, 100
+  orig: 81, 100
+  offset: 0, 0
+  index: -1
+hero-run-up-1
+  rotate: false
+  xy: 1019, 444
+  size: 81, 100
+  orig: 81, 100
+  offset: 0, 0
+  index: -1
+hero-run-up-2
+  rotate: false
+  xy: 1210, 444
+  size: 81, 100
+  orig: 81, 100
+  offset: 0, 0
+  index: -1
+hero-run-up-3
+  rotate: false
+  xy: 1401, 444
+  size: 81, 100
+  orig: 81, 100
+  offset: 0, 0
+  index: -1
+hero-run-up-4
+  rotate: false
+  xy: 1593, 444
+  size: 81, 100
+  orig: 81, 100
+  offset: 0, 0
+  index: -1
+hero-run-up-5
+  rotate: false
+  xy: 1785, 444
+  size: 81, 100
+  orig: 81, 100
+  offset: 0, 0
+  index: -1
+hero-run-up-6
+  rotate: false
+  xy: 1976, 444
+  size: 81, 100
+  orig: 81, 100
+  offset: 0, 0
+  index: -1
+hero-run-up-7
+  rotate: false
+  xy: 2169, 444
+  size: 81, 100
+  orig: 81, 100
+  offset: 0, 0
+  index: -1

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 
 import com.demosoft.game.medievallife.core.AbstractGameObject;
 import com.demosoft.game.medievallife.core.Map;
+import com.demosoft.game.medievallife.core.RenderListener;
 
 
 @Component

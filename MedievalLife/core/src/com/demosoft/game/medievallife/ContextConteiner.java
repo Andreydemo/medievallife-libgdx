@@ -22,7 +22,8 @@ import com.demosoft.game.medievallife.core.IsometricCamera;
 import com.demosoft.game.medievallife.core.log.LogLevel;
 import com.demosoft.game.medievallife.core.log.Logger;
 import com.demosoft.game.medievallife.cotroller.CameraManager;
-import com.demosoft.game.medievallife.cotroller.KeboardInputProcessor;
+import com.demosoft.game.medievallife.cotroller.KeyboardInputProcessor;
+import com.demosoft.game.medievallife.player.Player;
 
 @Component
 public class ContextConteiner {
@@ -44,7 +45,7 @@ public class ContextConteiner {
 	private Pixmap activeSceneShot;
 
 	@Autowired
-	private KeboardInputProcessor inputProcessor;
+	private KeyboardInputProcessor inputProcessor;
 	@Autowired
 	private SpritesLoader spritesLoader;
 	@Autowired
@@ -53,6 +54,9 @@ public class ContextConteiner {
 	private RenderingManager renderingManager;
 	@Autowired
 	private Logger logger;
+	
+	@Autowired
+	private Player player; 
 
 	public ContextConteiner() {
 		batch = new SpriteBatch();
@@ -67,7 +71,7 @@ public class ContextConteiner {
 		viewport = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), camera);
 		inputProcessor.setCamera(camera);
 		addInputProcessor(inputProcessor);
-		logger.setCurrentLevel(LogLevel.INFO);
+		logger.setCurrentLevel(LogLevel.DEBUG);
 	}
 
 	/**
@@ -154,11 +158,11 @@ public class ContextConteiner {
 		this.spritesLoader = spritesLoader;
 	}
 
-	public KeboardInputProcessor getInputProcessor() {
+	public KeyboardInputProcessor getInputProcessor() {
 		return inputProcessor;
 	}
 
-	public void setInputProcessor(KeboardInputProcessor inputProcessor) {
+	public void setInputProcessor(KeyboardInputProcessor inputProcessor) {
 		this.inputProcessor = inputProcessor;
 	}
 
@@ -240,6 +244,14 @@ public class ContextConteiner {
 
 	public void setActiveSceneShot(Pixmap activeSceneShot) {
 		this.activeSceneShot = activeSceneShot;
+	}
+
+	public Player getPlayer() {
+	    return player;
+	}
+
+	public void setPlayer(Player player) {
+	    this.player = player;
 	}
 
 }

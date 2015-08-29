@@ -6,13 +6,29 @@ import org.springframework.stereotype.Component;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector3;
+import com.demosoft.game.medievallife.core.BaseScene;
+import com.demosoft.game.medievallife.core.IsometricCamera;
 
 @Component
 public class MedievalLifeScene extends BaseScene {
 
 	@Autowired
 	private ContextConteiner context;
+
+	boolean firstShow = true;
+
+	@Override
+	public void show() {
+		super.show();
+		if (firstShow) {
+			context.getPlayer().processAtlass(context.getSpritesLoader().manager.get("player.pack", TextureAtlas.class),
+					context.getSpritesLoader().manager.get("isometric_hero/hero.pack", TextureAtlas.class));
+
+			firstShow = false;
+		}
+	}
 
 	@Override
 	public void render(float delta) {
@@ -51,6 +67,10 @@ public class MedievalLifeScene extends BaseScene {
 			context.getFont().draw(context.getBatch(), "x: " + Gdx.input.getX() + " y: " + Gdx.input.getY(), translateX(Gdx.input.getX()), translateY(Gdx.input.getY()));
 			context.getFont().draw(context.getBatch(), "unproject x: " + translateX(Gdx.input.getX()) + " y: " + translateY(Gdx.input.getY()), translateX(Gdx.input.getX()),
 					translateY(Gdx.input.getY()) + 20);
+			Vector3 onGrid = new Vector3( translateX(Gdx.input.getX()) , translateY(Gdx.input.getY()),0);
+			IsometricCamera.worldToGrid(onGrid );
+			context.getFont().draw(context.getBatch(), "on grid x: " + onGrid.x + " y: " + onGrid.y, 
+					translateX(Gdx.input.getX()),translateY(Gdx.input.getY()) + 40);
 
 		}
 

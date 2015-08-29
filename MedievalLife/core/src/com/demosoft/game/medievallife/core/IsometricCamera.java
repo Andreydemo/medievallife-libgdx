@@ -12,7 +12,7 @@ public class IsometricCamera extends OrthographicCamera {
 	private final static Matrix4 worldToGrid;
 
 	static {
-		gridToWorld = new Matrix4(new float[] { 8f, -4f, 0f, 0f, 8f, 4f, 0f, 0f, 0f, 0f, 1f, 0f, -1080f, 540f, 0f, 1f });
+		gridToWorld = new Matrix4(new float[] { 8f, -4f, 0f, 0f, 8f, 4f, 0f, 0f, 0f, 0f, 1f, 0f, 0, 0, 0f, 1f });
 		worldToGrid = new Matrix4(gridToWorld).inv();
 	}
 

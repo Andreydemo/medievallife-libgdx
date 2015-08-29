@@ -4,7 +4,7 @@ import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.demosoft.game.medievallife.MenuScene;
+import com.demosoft.game.medievallife.ui.MenuScene;
 
 public class SpringTools {
 	private static ApplicationContext context;

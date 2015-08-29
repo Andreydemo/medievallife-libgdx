@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.math.Vector3;
 import com.demosoft.game.medievallife.core.AbstarctGame;
 import com.demosoft.game.medievallife.spring.SpringTools;
+import com.demosoft.game.medievallife.ui.LoadingScreen;
 
 public class MedievalLife extends AbstarctGame {
 
