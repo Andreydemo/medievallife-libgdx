@@ -32,6 +32,8 @@ public class ContextConteiner {
 	private IsometricCamera camera;
 	private Viewport viewport;
 	private SpriteBatch batch;
+	public static final String BACKGROUND_SPRITE_ID_0 = "b2-0-0";
+	public static final String BACKGROUND_SPRITE_ID_1 = "b2-0-2";
 	public static final String BACKGROUND_SPRITE_ID = "b2-0-1";
 	private BitmapFont font;
 	private AbstarctGame game;

@@ -2,51 +2,68 @@ package com.demosoft.game.medievallife.core;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector3;
 
 public class Block extends AbstractGameObject {
-	private TextureRegion up;
-	private TextureRegion right;
-	private TextureRegion left;
-	
+    private Vector3 gridPositon;
+    private TextureRegion up;
+    private TextureRegion right;
+    private TextureRegion left;
 
-	@Override
-	public void render(SpriteBatch batch) {
-			
-		
-	}
-	private  void drawUp(SpriteBatch batch){
-		int y = 0;
-		batch.draw(up, 0, 0);
-	}
+    public Block() {
+    }
 
+    public Block(Vector3 gridPositon) {
+        this.gridPositon = gridPositon;
+    }
 
-	public TextureRegion getUp() {
-		return up;
-	}
+    @Override
+    public void render(SpriteBatch batch) {
+    }
 
-
-	public void setUp(TextureRegion up) {
-		this.up = up;
-	}
-
-
-	public TextureRegion getRight() {
-		return right;
-	}
+    public void drawUp(SpriteBatch batch) {
+        Vector3 worldPositon = new Vector3(gridPositon);
+        IsometricCamera.gridToWorld(worldPositon);
+        batch.draw(up, worldPositon.x, worldPositon.y);
+        batch.draw(left, worldPositon.x , worldPositon.y + SCREEN_HEIGHT2);
+        batch.draw(right, worldPositon.x + SCREEN_WIDTH2, worldPositon.y + SCREEN_HEIGHT2);
+    }
 
 
-	public void setRight(TextureRegion right) {
-		this.right = right;
-	}
+    public TextureRegion getUp() {
+        return up;
+    }
 
 
-	public TextureRegion getLeft() {
-		return left;
-	}
+    public void setUp(TextureRegion up) {
+        this.up = up;
+    }
 
 
-	public void setLeft(TextureRegion left) {
-		this.left = left;
-	}
+    public TextureRegion getRight() {
+        return right;
+    }
 
+
+    public void setRight(TextureRegion right) {
+        this.right = right;
+    }
+
+
+    public TextureRegion getLeft() {
+        return left;
+    }
+
+
+    public void setLeft(TextureRegion left) {
+        this.left = left;
+    }
+
+    public Vector3 getGridPositon() {
+        return gridPositon;
+    }
+
+    public void setGridPositon(Vector3 gridPositon) {
+        this.gridPositon = gridPositon;
+    }
 }
