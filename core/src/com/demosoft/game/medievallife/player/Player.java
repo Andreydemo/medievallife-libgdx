@@ -26,12 +26,27 @@ public class Player {
 
     public static final String LEFT_RUN_TEXTURES = "hero-run-left-";
     public static final String LEFT_SATY_TEXTURES = "hero-stay-left-";
+
+    public static final String UP_LEFT_RUN_TEXTURES = "hero-run-up-left-";
+    public static final String UP_LEFT_SATY_TEXTURES = "hero-stay-up-left-";
+
+    public static final String UP_RIGHT_RUN_TEXTURES = "hero-run-up-right-";
+    public static final String UP_RIGHT_SATY_TEXTURES = "hero-stay-up-right-";
+
     public static final String UP_RUN_TEXTURES = "hero-run-up-";
     public static final String UP_SATY_TEXTURES = "hero-stay-up-";
+
     public static final String RIGHT_RUN_TEXTURES = "hero-run-right-";
     public static final String RIGHT_SATY_TEXTURES = "hero-stay-right-";
+
     public static final String DOWN_RUN_TEXTURES = "hero-run-down-";
     public static final String DOWN_SATY_TEXTURES = "hero-stay-down-";
+
+    public static final String DOWN_LEFT_RUN_TEXTURES = "hero-run-down-left-";
+    public static final String DOWN_LEFT_SATY_TEXTURES = "hero-stay-down-left-";
+
+    public static final String DOWN_RIGHT_RUN_TEXTURES = "hero-run-down-right-";
+    public static final String DOWN_RIGHT_SATY_TEXTURES = "hero-stay-down-right-";
 
     public static final int PLAYER_HEIGHT = 192;
     public static final int PLAYER_HEIGHT2 = 96;
@@ -44,12 +59,27 @@ public class Player {
 
     private List<TextureRegion> leftRunTextures = new ArrayList<TextureRegion>(RUN_TEXTURES_COUNT);
     private List<TextureRegion> leftStayTextures = new ArrayList<TextureRegion>(STAY_TEXTURES_COUNT);
+
+    private List<TextureRegion> upLeftRunTextures = new ArrayList<TextureRegion>(RUN_TEXTURES_COUNT);
+    private List<TextureRegion> upLeftStayTextures = new ArrayList<TextureRegion>(STAY_TEXTURES_COUNT);
+
+    private List<TextureRegion> upRightRunTextures = new ArrayList<TextureRegion>(RUN_TEXTURES_COUNT);
+    private List<TextureRegion> upRightStayTextures = new ArrayList<TextureRegion>(STAY_TEXTURES_COUNT);
+
     private List<TextureRegion> upRunTextures = new ArrayList<TextureRegion>(RUN_TEXTURES_COUNT);
     private List<TextureRegion> upStayTextures = new ArrayList<TextureRegion>(STAY_TEXTURES_COUNT);
+
     private List<TextureRegion> rightRunTextures = new ArrayList<TextureRegion>(RUN_TEXTURES_COUNT);
     private List<TextureRegion> rightStayTextures = new ArrayList<TextureRegion>(STAY_TEXTURES_COUNT);
+
     private List<TextureRegion> downRunTextures = new ArrayList<TextureRegion>(RUN_TEXTURES_COUNT);
     private List<TextureRegion> downStayTextures = new ArrayList<TextureRegion>(STAY_TEXTURES_COUNT);
+
+    private List<TextureRegion> downLeftRunTextures = new ArrayList<TextureRegion>(RUN_TEXTURES_COUNT);
+    private List<TextureRegion> downLeftStayTextures = new ArrayList<TextureRegion>(STAY_TEXTURES_COUNT);
+
+    private List<TextureRegion> downRightRunTextures = new ArrayList<TextureRegion>(RUN_TEXTURES_COUNT);
+    private List<TextureRegion> downRightStayTextures = new ArrayList<TextureRegion>(STAY_TEXTURES_COUNT);
 
     private List<TextureRegion> rightTextures = new ArrayList<TextureRegion>(TEXTURES_COUNT);
     private AnimationHolder activeTextures;
@@ -149,6 +179,47 @@ public class Player {
             TextureRegion buf = atlas1.findRegion(DOWN_RUN_TEXTURES + i);
             buf.flip(false, true);
             this.downRunTextures.add(buf);
+        }
+        for (int i = 0; i < STAY_TEXTURES_COUNT; i++) {
+            TextureRegion buf = atlas1.findRegion(UP_LEFT_SATY_TEXTURES + i);
+            buf.flip(false, true);
+            this.upLeftStayTextures.add(buf);
+        }
+        for (int i = 0; i < RUN_TEXTURES_COUNT; i++) {
+            TextureRegion buf = atlas1.findRegion(UP_LEFT_RUN_TEXTURES + i);
+            buf.flip(false, true);
+            this.upLeftRunTextures.add(buf);
+        }
+        for (int i = 0; i < STAY_TEXTURES_COUNT; i++) {
+            TextureRegion buf = atlas1.findRegion(UP_RIGHT_SATY_TEXTURES + i);
+            buf.flip(false, true);
+            this.upRightStayTextures.add(buf);
+        }
+        for (int i = 0; i < RUN_TEXTURES_COUNT; i++) {
+            TextureRegion buf = atlas1.findRegion(UP_RIGHT_RUN_TEXTURES + i);
+            buf.flip(false, true);
+            this.upRightRunTextures.add(buf);
+        }
+
+        for (int i = 0; i < STAY_TEXTURES_COUNT; i++) {
+            TextureRegion buf = atlas1.findRegion(DOWN_LEFT_SATY_TEXTURES + i);
+            buf.flip(false, true);
+            this.downLeftStayTextures.add(buf);
+        }
+        for (int i = 0; i < RUN_TEXTURES_COUNT; i++) {
+            TextureRegion buf = atlas1.findRegion(DOWN_LEFT_RUN_TEXTURES + i);
+            buf.flip(false, true);
+            this.downLeftRunTextures.add(buf);
+        }
+        for (int i = 0; i < STAY_TEXTURES_COUNT; i++) {
+            TextureRegion buf = atlas1.findRegion(DOWN_RIGHT_SATY_TEXTURES + i);
+            buf.flip(false, true);
+            this.downRightStayTextures.add(buf);
+        }
+        for (int i = 0; i < RUN_TEXTURES_COUNT; i++) {
+            TextureRegion buf = atlas1.findRegion(DOWN_RIGHT_RUN_TEXTURES + i);
+            buf.flip(false, true);
+            this.downRightRunTextures.add(buf);
         }
         activeTextures = new AnimationHolder(leftStayTextures);
         inited = true;
@@ -290,5 +361,69 @@ public class Player {
 
     public void setDownStayTextures(List<TextureRegion> downStayTextures) {
         this.downStayTextures = downStayTextures;
+    }
+
+    public List<TextureRegion> getUpLeftStayTextures() {
+        return upLeftStayTextures;
+    }
+
+    public void setUpLeftStayTextures(List<TextureRegion> upLeftStayTextures) {
+        this.upLeftStayTextures = upLeftStayTextures;
+    }
+
+    public List<TextureRegion> getUpLeftRunTextures() {
+        return upLeftRunTextures;
+    }
+
+    public void setUpLeftRunTextures(List<TextureRegion> upLeftRunTextures) {
+        this.upLeftRunTextures = upLeftRunTextures;
+    }
+
+    public List<TextureRegion> getUpRightRunTextures() {
+        return upRightRunTextures;
+    }
+
+    public void setUpRightRunTextures(List<TextureRegion> upRightRunTextures) {
+        this.upRightRunTextures = upRightRunTextures;
+    }
+
+    public List<TextureRegion> getUpRightStayTextures() {
+        return upRightStayTextures;
+    }
+
+    public void setUpRightStayTextures(List<TextureRegion> upRightStayTextures) {
+        this.upRightStayTextures = upRightStayTextures;
+    }
+
+    public List<TextureRegion> getDownLeftRunTextures() {
+        return downLeftRunTextures;
+    }
+
+    public void setDownLeftRunTextures(List<TextureRegion> downLeftRunTextures) {
+        this.downLeftRunTextures = downLeftRunTextures;
+    }
+
+    public List<TextureRegion> getDownLeftStayTextures() {
+        return downLeftStayTextures;
+    }
+
+    public void setDownLeftStayTextures(List<TextureRegion> downLeftStayTextures) {
+        this.downLeftStayTextures = downLeftStayTextures;
+    }
+
+    public List<TextureRegion> getDownRightRunTextures() {
+        return downRightRunTextures;
+    }
+
+    public void setDownRightRunTextures(List<TextureRegion> downRightRunTextures) {
+        this.downRightRunTextures = downRightRunTextures;
+    }
+
+    public List<TextureRegion> getDownRightStayTextures() {
+        return downRightStayTextures;
+    }
+
+    public void setDownRightStayTextures(List<TextureRegion> downRightStayTextures) {
+        this.downRightStayTextures = downRightStayTextures;
     }
 }

@@ -21,7 +21,7 @@ public class PlayerRenderListener extends RenderListener {
     private ContextConteiner context;
 
     public void init() {
-	walkDownAnimation = new Animation(0.08f, context.getPlayer().getActiveTextures().getTexturesArray());
+	walkDownAnimation = new Animation(0.12f, context.getPlayer().getActiveTextures().getTexturesArray());
 	stateTime = 0;
     }
 
@@ -32,7 +32,7 @@ public class PlayerRenderListener extends RenderListener {
 		init();
 	    }
 	    if(context.getPlayer().getActiveTextures().isTexuresChanged()){ 
-		walkDownAnimation = new Animation(0.08f, context.getPlayer().getActiveTextures().getTexturesArray());
+		walkDownAnimation = new Animation(0.12f, context.getPlayer().getActiveTextures().getTexturesArray());
 		context.getPlayer().getActiveTextures().setTexuresChanged(false);
 	    }
 	    stateTime += Gdx.graphics.getDeltaTime(); // #15
