@@ -38,7 +38,7 @@ public class PlayerManager {
             resetFlags();
             moovedUpLeft = true;
         }
-        player.changeGridPositin(new Vector3(0.375f, -1.125f, 0));
+        player.changeGridPositin(new Vector3(0.0f, -1.0f, 0));
     }
 
     public void moveUpRight() {
@@ -47,7 +47,7 @@ public class PlayerManager {
             resetFlags();
             moovedUpRight = true;
         }
-        player.changeGridPositin(new Vector3(1.125f, -0.375f, 0));
+        player.changeGridPositin(new Vector3(1.0f, 0.0f, 0));
     }
 
     public void moveDownLeft() {
@@ -56,7 +56,7 @@ public class PlayerManager {
             resetFlags();
             moovedDownLeft = true;
         }
-        player.changeGridPositin(new Vector3(-1.125f, 0.375f, 0));
+        player.changeGridPositin(new Vector3(-1.0f, 0.0f, 0));
     }
 
     public void moveDownRight() {
@@ -65,7 +65,7 @@ public class PlayerManager {
             resetFlags();
             moovedDownRight = true;
         }
-        player.changeGridPositin(new Vector3(-0.375f, 1.125f, 0));
+        player.changeGridPositin(new Vector3(0.0f, 1.0f, 0));
     }
 
     public void moveRight() {
