@@ -3,6 +3,8 @@ package com.demosoft.game.medievallife.core.render;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.badlogic.gdx.math.Vector3;
+import com.demosoft.game.medievallife.core.IsometricCamera;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -46,7 +48,9 @@ public class ChunkCulculator {
         int chunkWidthI = (int) Math.ceil(chunkWidth);
         Chunk retChunk = new Chunk(new Vector2(0, 0), chunkWidthI, chunkWidthI);
         sizeInWorld = retChunk.getSizeInWorld();
-        retChunk.setFirstPointIn(calculatesetFirstPointInWorld(camera, retChunk.getStartPostion()));
+        //  retChunk.setFirstPointIn(calculatesetFirstPointInWorld(camera, retChunk.getStartPostion()));
+        Vector3 v = IsometricCamera.getGridToWorld(new Vector3(0, 0, 0));
+        retChunk.setFirstPointIn(new Vector2(v.x, v.y));
         mainChunk = retChunk;
         return retChunk;
     }
@@ -86,7 +90,7 @@ public class ChunkCulculator {
                     continue;
                 }
         /*
-		 * chunk = new Chunk(i, j, mainChunk.getHeight(),
+         * chunk = new Chunk(i, j, mainChunk.getHeight(),
 		 * mainChunk.getWidth());
 		 * chunk.setFirstPointIn(calculatesetFirstPointInWorld(chunk));
 		 * newChunks.add(chunk);

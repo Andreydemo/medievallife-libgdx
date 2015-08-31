@@ -40,6 +40,12 @@ public class IsometricCamera extends OrthographicCamera {
 		}
 	}
 
+	public static Vector3 getGridToWorld(Vector3 gridCoordinate){
+		Vector3 worldPositon = new Vector3(gridCoordinate);
+		IsometricCamera.gridToWorld(worldPositon);
+		return worldPositon;
+	}
+
 	public static Vector3 getSimpleVec(Vector3 v) {
 		return new Vector3(v).add(1080f, -540, 0).scl(0.025f, 0.025f, 1);
 	}

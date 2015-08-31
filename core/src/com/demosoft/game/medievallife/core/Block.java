@@ -25,8 +25,8 @@ public class Block extends AbstractGameObject {
         Vector3 worldPositon = new Vector3(gridPositon);
         IsometricCamera.gridToWorld(worldPositon);
         batch.draw(up, worldPositon.x, worldPositon.y);
-        batch.draw(left, worldPositon.x , worldPositon.y + SCREEN_HEIGHT2);
-        batch.draw(right, worldPositon.x + SCREEN_WIDTH2, worldPositon.y + SCREEN_HEIGHT2);
+        batch.draw(left, worldPositon.x + 2, worldPositon.y + SCREEN_HEIGHT2 - 1 );
+        batch.draw(right, worldPositon.x + SCREEN_WIDTH2 , worldPositon.y + SCREEN_HEIGHT2 - 1);
     }
 
 
