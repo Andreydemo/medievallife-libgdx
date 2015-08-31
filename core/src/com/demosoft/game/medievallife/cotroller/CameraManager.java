@@ -1,5 +1,6 @@
 package com.demosoft.game.medievallife.cotroller;
 
+import com.demosoft.game.medievallife.player.Player;
 import org.springframework.stereotype.Component;
 
 import com.badlogic.gdx.Gdx;
@@ -79,6 +80,11 @@ public class CameraManager {
 		if (zoom < minZoom) {
 			camera.zoom = zoom;
 		}
+	}
+
+	public void focusOnPlayer(Player player){
+		camera.position.x = player.getWorldPositon().x+Player.PLAYER_WIDTH2;
+		camera.position.y = player.getWorldPositon().y + Player.PLAYER_WIDTH2;
 	}
 
 	public boolean isFlipped() {
