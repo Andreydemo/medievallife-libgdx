@@ -1,6 +1,6 @@
 apply plugin: "com.github.johnrengelman.shadow"
 android {
-    buildToolsVersion "23"
+    buildToolsVersion "22.0.1"
     compileSdkVersion 19
     sourceSets {
         main {

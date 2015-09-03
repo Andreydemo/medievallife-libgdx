@@ -42,6 +42,7 @@ public class MedievalLifeScene extends BaseScene {
 		drawScene();
 		drawFps();
 		drawZoom();
+		drawPlayerInfo();
 		context.getBatch().end();
 		super.render(delta);
 	}
@@ -59,6 +60,10 @@ public class MedievalLifeScene extends BaseScene {
 		Camera cam = context.getCameraManager().getCamera();
 		context.getFont().draw(context.getBatch(), "camera props: viewportHeight" + cam.viewportHeight + " viewportWidth: " + cam.viewportWidth + " pos:" + cam.position,
 				translateX(20), translateY(70));
+	}
+
+	public  void  drawPlayerInfo(){
+		context.getFont().draw(context.getBatch(), "grid position: " + context.getPlayer().getGridPositon() + " world position:" + context.getPlayer().getWorldPositon(), translateX(20), translateY(90));
 	}
 
 	public void drawScene() {

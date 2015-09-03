@@ -1,11 +1,13 @@
 package com.demosoft.game.medievallife.core.render;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 
 import com.badlogic.gdx.math.Vector3;
 import com.demosoft.game.medievallife.core.*;
+import com.demosoft.game.medievallife.stub.StubMapProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -34,6 +36,7 @@ public class BackgroundRenderListener extends RenderListener {
     TextureRegion groundOfBackGround;
     Block testBlock;
     Chunk mainActiveChunk;
+    List<MapObject> map;
 
     @PostConstruct
     public void init() {
@@ -47,22 +50,27 @@ public class BackgroundRenderListener extends RenderListener {
         activeChunks.add(mainActiveChunk);
         testBlock = objectFactory.getStoneBlock();
         testBlock.setGridPositon(new Vector3(10,0,10));
+        map = new StubMapProvider().generate();
         //activeChunks.addAll(chunkCulculator.generateChunks(mainActiveChunk));
     }
 
     @Override
     public void render() {
         chunkCulculator.processChunks();
-        for (Chunk chunk : activeChunks) {
+        for (MapObject obj : map) {
+            context.getBatch().draw(backGround, obj.getTopLeftPoint().x,
+                    obj.getTopLeftPoint().y );
+        }
+        /*for (Chunk chunk : activeChunks) {
             for (int j = 0; j < chunk.getHeight(); j++) {
                 for (int i = 0; i < chunk.getWidth(); i++) {
                     context.getBatch().draw(backGround, chunk.getFirstPointIn().x + i * AbstractGameObject.SCREEN_WIDTH2 + j * AbstractGameObject.SCREEN_WIDTH2,
                             chunk.getFirstPointIn().y - i * AbstractGameObject.SCREEN_HEIGHT2 + j * AbstractGameObject.SCREEN_HEIGHT2 );
                     if (i == 0 && j == 0) {
                         // chunk.getFirstPointIn().x++;
-                    /*System.out.println();
+                    *//*System.out.println();
 					System.out.println("draw on: x: " +  chunk.getFirstPointIn().x + i * AbstractGameObject.SCREEN_WIDTH2 + j * AbstractGameObject.SCREEN_WIDTH2);
-					System.err.println();*/
+					System.err.println();*//*
                     }
                     context.getFont().draw(context.getBatch(), j + " " + i,
                             chunk.getFirstPointIn().x + AbstractGameObject.SCREEN_WIDTH2 + i * AbstractGameObject.SCREEN_WIDTH2 + j * AbstractGameObject.SCREEN_WIDTH2,
@@ -79,7 +87,9 @@ public class BackgroundRenderListener extends RenderListener {
 
                 }
             }
-        }
+        }*/
+
+
         testBlock.drawUp(context.getBatch());
     }
 
