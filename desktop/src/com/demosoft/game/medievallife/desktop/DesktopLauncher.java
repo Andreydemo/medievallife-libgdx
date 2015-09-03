@@ -1,7 +1,5 @@
 package com.demosoft.game.medievallife.desktop;
 
-import javax.swing.JOptionPane;
-
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.demosoft.game.medievallife.MedievalLife;

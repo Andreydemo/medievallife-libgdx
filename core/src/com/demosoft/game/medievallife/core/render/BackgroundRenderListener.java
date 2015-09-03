@@ -46,7 +46,7 @@ public class BackgroundRenderListener extends RenderListener {
         System.out.println("chunk- getFirstPointIn ->> " + mainActiveChunk.getFirstPointIn());
         activeChunks.add(mainActiveChunk);
         testBlock = objectFactory.getStoneBlock();
-        testBlock.setGridPositon(new Vector3(0,0,0));
+        testBlock.setGridPositon(new Vector3(10,0,10));
         //activeChunks.addAll(chunkCulculator.generateChunks(mainActiveChunk));
     }
 
@@ -57,7 +57,7 @@ public class BackgroundRenderListener extends RenderListener {
             for (int j = 0; j < chunk.getHeight(); j++) {
                 for (int i = 0; i < chunk.getWidth(); i++) {
                     context.getBatch().draw(backGround, chunk.getFirstPointIn().x + i * AbstractGameObject.SCREEN_WIDTH2 + j * AbstractGameObject.SCREEN_WIDTH2,
-                            chunk.getFirstPointIn().y - i * AbstractGameObject.SCREEN_HEIGHT2 + j * AbstractGameObject.SCREEN_HEIGHT2 - AbstractGameObject.SCREEN_HEIGHT2);
+                            chunk.getFirstPointIn().y - i * AbstractGameObject.SCREEN_HEIGHT2 + j * AbstractGameObject.SCREEN_HEIGHT2 );
                     if (i == 0 && j == 0) {
                         // chunk.getFirstPointIn().x++;
                     /*System.out.println();
@@ -66,14 +66,14 @@ public class BackgroundRenderListener extends RenderListener {
                     }
                     context.getFont().draw(context.getBatch(), j + " " + i,
                             chunk.getFirstPointIn().x + AbstractGameObject.SCREEN_WIDTH2 + i * AbstractGameObject.SCREEN_WIDTH2 + j * AbstractGameObject.SCREEN_WIDTH2,
-                            chunk.getFirstPointIn().y - i * AbstractGameObject.SCREEN_HEIGHT2 + j * AbstractGameObject.SCREEN_HEIGHT2);
+                            chunk.getFirstPointIn().y - i * AbstractGameObject.SCREEN_HEIGHT2 + j * AbstractGameObject.SCREEN_HEIGHT2 + AbstractGameObject.SCREEN_HEIGHT2);
                     if (i == 0) {
                         context.getBatch().draw(backGround1, chunk.getFirstPointIn().x + i * AbstractGameObject.SCREEN_WIDTH2 + j * AbstractGameObject.SCREEN_WIDTH2,
-                                chunk.getFirstPointIn().y - i * AbstractGameObject.SCREEN_HEIGHT2 + j * AbstractGameObject.SCREEN_HEIGHT2);
+                                chunk.getFirstPointIn().y - i * AbstractGameObject.SCREEN_HEIGHT2 + j * AbstractGameObject.SCREEN_HEIGHT2 + AbstractGameObject.SCREEN_HEIGHT2);
                     }
                     if (j == chunk.getHeight() - 1) {
                         context.getBatch().draw(backGround0, chunk.getFirstPointIn().x + i * AbstractGameObject.SCREEN_WIDTH2 + j * AbstractGameObject.SCREEN_WIDTH2 + AbstractGameObject.SCREEN_WIDTH2,
-                                chunk.getFirstPointIn().y - i * AbstractGameObject.SCREEN_HEIGHT2 + j * AbstractGameObject.SCREEN_HEIGHT2);
+                                chunk.getFirstPointIn().y - i * AbstractGameObject.SCREEN_HEIGHT2 + j * AbstractGameObject.SCREEN_HEIGHT2 + AbstractGameObject.SCREEN_HEIGHT2);
                     }
 
 

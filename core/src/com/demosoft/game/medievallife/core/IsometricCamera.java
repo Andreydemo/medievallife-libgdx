@@ -20,7 +20,7 @@ public class IsometricCamera extends OrthographicCamera {
 		if (worldCoordinate.z != 0) {
 			Vector3 v = new Vector3(0, worldCoordinate.z*2, 0);
 			v.mul(gridToWorld);
-			v.y-=540;
+			//v.y-=540;
 			worldCoordinate.y += v.y;
 			worldCoordinate.mul(worldToGrid);
 		} else {
@@ -32,7 +32,7 @@ public class IsometricCamera extends OrthographicCamera {
 		if (gridCoordinate.z != 0) {
 			Vector3 v = new Vector3(0, gridCoordinate.z*2, 0);
 			v.mul(gridToWorld);
-			v.y-=540;
+			//v.y-=540;
 			gridCoordinate.mul(gridToWorld);
 			gridCoordinate.y -= v.y;
 		} else {

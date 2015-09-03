@@ -1,10 +1,10 @@
 apply plugin: "java"
 
-version '1.8.1'
+version '1.8.2'
 
 sourceCompatibility = 1.7  //these two lines
 targetCompatibility = 1.7
-[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+[compileJava/*, compileTestJava*/]*.options*.encoding = 'UTF-8'
 
 sourceSets {
     main {
@@ -14,11 +14,16 @@ sourceSets {
         }
 
         resources {
-            srcDirs = ["src"]
+            srcDirs = ["res"]
         }
 
     }
 }
+/*
+jar{
+    duplicatesStrategy = DuplicatesStrategy.WARN
+}
+*/
 
 
 eclipse.project {
