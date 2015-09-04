@@ -84,6 +84,8 @@ public class Player {
     private List<TextureRegion> rightTextures = new ArrayList<TextureRegion>(TEXTURES_COUNT);
     private AnimationHolder activeTextures;
 
+    private boolean inJump;
+
     private boolean inited = false;
 
     private Vector3 gridPositon = new Vector3(-5, 90, 0);
@@ -425,5 +427,13 @@ public class Player {
 
     public void setDownRightStayTextures(List<TextureRegion> downRightStayTextures) {
         this.downRightStayTextures = downRightStayTextures;
+    }
+
+    public boolean isInJump() {
+        return inJump;
+    }
+
+    public void setInJump(boolean inJump) {
+        this.inJump = inJump;
     }
 }

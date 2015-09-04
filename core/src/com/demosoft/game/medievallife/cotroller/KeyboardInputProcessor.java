@@ -1,8 +1,5 @@
 package com.demosoft.game.medievallife.cotroller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
@@ -11,6 +8,8 @@ import com.demosoft.game.medievallife.ContextConteiner;
 import com.demosoft.game.medievallife.player.PlayerManager;
 import com.demosoft.game.medievallife.spring.SpringTools;
 import com.demosoft.game.medievallife.ui.DebugScene;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 @Component
 public class KeyboardInputProcessor implements InputProcessor {
@@ -86,6 +85,9 @@ public class KeyboardInputProcessor implements InputProcessor {
             }
         }
 
+        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+            playerManager.jump();
+        }
         isPlayerMoved = false;
         if (Gdx.input.isKeyPressed(Input.Keys.UP) && Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             playerManager.moveUpLeft();
