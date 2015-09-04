@@ -1,19 +1,20 @@
 package com.demosoft.game.medievallife.core.render;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.badlogic.gdx.math.Vector3;
-import com.demosoft.game.medievallife.core.IsometricCamera;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.demosoft.game.medievallife.ContextConteiner;
 import com.demosoft.game.medievallife.core.AbstractGameObject;
 import com.demosoft.game.medievallife.core.Chunk;
+import com.demosoft.game.medievallife.core.IsometricCamera;
+import com.demosoft.game.medievallife.core.MapObject;
+import com.demosoft.game.medievallife.cotroller.CameraManager;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class ChunkCulculator {
@@ -23,6 +24,9 @@ public class ChunkCulculator {
     private Vector2 sizeInWorld;
 
     private static Chunk mainChunk;
+
+    @Autowired
+    private CameraManager cameraManager;
 
     @Autowired
     private ContextConteiner context;
@@ -53,6 +57,42 @@ public class ChunkCulculator {
         retChunk.setFirstPointIn(new Vector2(v.x, v.y));
         mainChunk = retChunk;
         return retChunk;
+    }
+
+    public boolean cunkInScreen(MapObject obj) {
+        float x = cameraManager.getCamera().position.x - Gdx.graphics.getWidth() / 2 - 10;
+        float y = cameraManager.getCamera().position.y - Gdx.graphics.getHeight() / 2 - 10;
+        float x1 = x + Gdx.graphics.getWidth() + 20;
+        float y1 = y + Gdx.graphics.getHeight() + 20;
+        return (
+                (
+                        (
+                                (obj.getTopLeftPoint().x >= x && obj.getTopLeftPoint().x <= x1) || (obj.getBottomRightPoint().x >= x && obj.getBottomRightPoint().x <= x1)
+                        ) && (
+                                (obj.getTopLeftPoint().y >= y && obj.getTopLeftPoint().y <= y1) || (obj.getBottomRightPoint().y >= y && obj.getBottomRightPoint().y <= y1)
+                        )
+                ) || (
+                        (
+                                (x >= obj.getTopLeftPoint().x && x <= obj.getBottomRightPoint().x) || (x1 >= obj.getTopLeftPoint().x && x1 <= obj.getBottomRightPoint().x)
+                        ) && (
+                                (y >= obj.getTopLeftPoint().y && y <= obj.getBottomRightPoint().y) || (y1 >= obj.getTopLeftPoint().y && y1 <= obj.getBottomRightPoint().y)
+                        )
+                )
+        ) || (
+                (
+                        (
+                                (obj.getTopLeftPoint().x >= x && obj.getTopLeftPoint().x <= x1) || (obj.getBottomRightPoint().x >= x && obj.getBottomRightPoint().x <= x1)
+                        ) && (
+                                (y >= obj.getTopLeftPoint().y && y <= obj.getBottomRightPoint().y) || (y1 >= obj.getTopLeftPoint().y && y1 <= obj.getBottomRightPoint().y)
+                        )
+                ) || (
+                        (
+                                (x >= obj.getTopLeftPoint().x && x <= obj.getBottomRightPoint().x) || (x1 >= obj.getTopLeftPoint().x && x1 <= obj.getBottomRightPoint().x)
+                        ) && (
+                                (obj.getTopLeftPoint().y >= y && obj.getTopLeftPoint().y <= y1) || (obj.getBottomRightPoint().y >= y && obj.getBottomRightPoint().y <= y1)
+                        )
+                )
+        );
     }
 
     private void recalculateMainChank() {
@@ -103,8 +143,8 @@ public class ChunkCulculator {
 
     public static void main(String[] args) {
         ChunkCulculator ChunkCulculator = new ChunkCulculator();
-	/*
-	 * System.out.println(ChunkCulculator.calculateFirstChunk(800, 600));
+    /*
+     * System.out.println(ChunkCulculator.calculateFirstChunk(800, 600));
 	 * System.out.println(ChunkCulculator.calculateFirstChunk(1024, 600));
 	 * System.out.println(ChunkCulculator.calculateFirstChunk(1024, 768));
 	 * System.out.println(ChunkCulculator.calculateFirstChunk(1280, 720));

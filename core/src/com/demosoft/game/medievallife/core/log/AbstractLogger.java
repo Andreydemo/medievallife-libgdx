@@ -9,6 +9,8 @@ public abstract class AbstractLogger {
 
 	public abstract void addMessage(LogRow row);
 
+	public abstract void addMessage(LogRow row,boolean fromPrepared);
+
 	private static LogLevel currentLevel = LogLevel.INFO;
 
 	private static List<AbstractLogger> loggers = new ArrayList<>();

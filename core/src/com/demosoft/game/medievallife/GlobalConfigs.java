@@ -5,17 +5,26 @@ import org.springframework.stereotype.Component;
 @Component
 public class GlobalConfigs {
 
-	private String blockSpritesPath;
-	
-	public GlobalConfigs() {
-	}
+    private String blockSpritesPath;
 
-	public String getBlockSpritesPath() {
-		return blockSpritesPath;
-	}
+    private int inMemoryMapBufSize = 100;
 
-	public void setBlockSpritesPath(String blockSpritesPath) {
-		this.blockSpritesPath = blockSpritesPath;
-	}
+    public GlobalConfigs() {
+    }
 
+    public String getBlockSpritesPath() {
+        return blockSpritesPath;
+    }
+
+    public void setBlockSpritesPath(String blockSpritesPath) {
+        this.blockSpritesPath = blockSpritesPath;
+    }
+
+    public int getInMemoryMapBufSize() {
+        return inMemoryMapBufSize;
+    }
+
+    public void setInMemoryMapBufSize(int inMemoryMapBufSize) {
+        this.inMemoryMapBufSize = inMemoryMapBufSize;
+    }
 }

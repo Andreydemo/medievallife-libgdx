@@ -7,6 +7,8 @@ import javax.annotation.PostConstruct;
 
 import com.badlogic.gdx.math.Vector3;
 import com.demosoft.game.medievallife.core.*;
+import com.demosoft.game.medievallife.map.MapManager;
+import com.demosoft.game.medievallife.stub.MapLoaderTask;
 import com.demosoft.game.medievallife.stub.StubMapProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -29,6 +31,9 @@ public class BackgroundRenderListener extends RenderListener {
     @Autowired
     Logger logger;
 
+    @Autowired
+    MapManager mapManager;
+
     private ArrayList<Chunk> activeChunks = new ArrayList<Chunk>();
     TextureRegion backGround;
     TextureRegion backGround0;
@@ -36,7 +41,7 @@ public class BackgroundRenderListener extends RenderListener {
     TextureRegion groundOfBackGround;
     Block testBlock;
     Chunk mainActiveChunk;
-    List<MapObject> map;
+    List<MapObject> map = new ArrayList<>();
 
     @PostConstruct
     public void init() {
@@ -49,18 +54,22 @@ public class BackgroundRenderListener extends RenderListener {
         System.out.println("chunk- getFirstPointIn ->> " + mainActiveChunk.getFirstPointIn());
         activeChunks.add(mainActiveChunk);
         testBlock = objectFactory.getStoneBlock();
-        testBlock.setGridPositon(new Vector3(10,0,10));
-        map = new StubMapProvider().generate();
+        testBlock.setGridPositon(new Vector3(10, 0, 10));
         //activeChunks.addAll(chunkCulculator.generateChunks(mainActiveChunk));
     }
 
     @Override
     public void render() {
         chunkCulculator.processChunks();
-        for (MapObject obj : map) {
-            context.getBatch().draw(backGround, obj.getTopLeftPoint().x,
-                    obj.getTopLeftPoint().y );
+        int rendered = 0;
+        for (MapObject obj : mapManager.getMap()) {
+            if (chunkCulculator.cunkInScreen(obj)) {
+                context.getBatch().draw(backGround, obj.getTopLeftPoint().x,
+                        obj.getTopLeftPoint().y);
+                rendered++;
+            }
         }
+      //  System.out.println("rendered chunks:" + rendered);
         /*for (Chunk chunk : activeChunks) {
             for (int j = 0; j < chunk.getHeight(); j++) {
                 for (int i = 0; i < chunk.getWidth(); i++) {
@@ -69,7 +78,7 @@ public class BackgroundRenderListener extends RenderListener {
                     if (i == 0 && j == 0) {
                         // chunk.getFirstPointIn().x++;
                     *//*System.out.println();
-					System.out.println("draw on: x: " +  chunk.getFirstPointIn().x + i * AbstractGameObject.SCREEN_WIDTH2 + j * AbstractGameObject.SCREEN_WIDTH2);
+                    System.out.println("draw on: x: " +  chunk.getFirstPointIn().x + i * AbstractGameObject.SCREEN_WIDTH2 + j * AbstractGameObject.SCREEN_WIDTH2);
 					System.err.println();*//*
                     }
                     context.getFont().draw(context.getBatch(), j + " " + i,

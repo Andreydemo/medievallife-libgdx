@@ -12,4 +12,11 @@ public class ConsoleLogger extends AbstractLogger {
 		}
 	}
 
+	@Override
+	public void addMessage(LogRow row, boolean fromPrepared) {
+		if (checkLevel(row)) {
+			System.out.println(row.getDate().getTime() + " " + row.getLevel() + "  - [" + row.getCaller() + "] " + row.getMessage());
+		}
+	}
+
 }

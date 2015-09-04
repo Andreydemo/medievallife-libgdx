@@ -40,6 +40,7 @@ public class ContextConteiner {
 	private IActivityRequestHandler handler;
 	private boolean soundEnabled = true;
 	private float soundVolume = 0;
+	boolean contextActive = false;
 
 	private boolean flipped = true;
 
@@ -74,6 +75,7 @@ public class ContextConteiner {
 		inputProcessor.setCamera(camera);
 		addInputProcessor(inputProcessor);
 		logger.setCurrentLevel(LogLevel.DEBUG);
+		contextActive = true;
 	}
 
 	/**
@@ -256,4 +258,7 @@ public class ContextConteiner {
 	    this.player = player;
 	}
 
+	public boolean isContextActive() {
+		return contextActive;
+	}
 }

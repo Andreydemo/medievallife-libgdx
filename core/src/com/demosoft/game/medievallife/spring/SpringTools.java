@@ -10,6 +10,9 @@ public class SpringTools {
 	private static ApplicationContext context;
 
 	public static void initContext() {
+		if(context!= null){
+			context = null;
+		}
 		context = new ClassPathXmlApplicationContext("appContext.xml");
 	}
 	public static void postInit(){
