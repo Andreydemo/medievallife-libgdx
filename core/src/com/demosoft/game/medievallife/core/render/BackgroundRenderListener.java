@@ -1,21 +1,17 @@
 package com.demosoft.game.medievallife.core.render;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.annotation.PostConstruct;
-
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector3;
+import com.demosoft.game.medievallife.ContextConteiner;
 import com.demosoft.game.medievallife.core.*;
+import com.demosoft.game.medievallife.core.log.Logger;
 import com.demosoft.game.medievallife.map.MapManager;
-import com.demosoft.game.medievallife.stub.MapLoaderTask;
-import com.demosoft.game.medievallife.stub.StubMapProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.demosoft.game.medievallife.ContextConteiner;
-import com.demosoft.game.medievallife.core.log.Logger;
+import javax.annotation.PostConstruct;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class BackgroundRenderListener extends RenderListener {
@@ -40,6 +36,14 @@ public class BackgroundRenderListener extends RenderListener {
     TextureRegion backGround1;
     TextureRegion groundOfBackGround;
     Block testBlock;
+    Block testBlock2;
+    Block dirtBlock;
+    Block stonePreparedBlock;
+    Block GravelBlock;
+    Block WhiteBlock;
+    Block grassBlock;
+    Block brickBlock;
+    Block sandBlock;
     Chunk mainActiveChunk;
     List<MapObject> map = new ArrayList<>();
 
@@ -54,51 +58,42 @@ public class BackgroundRenderListener extends RenderListener {
         System.out.println("chunk- getFirstPointIn ->> " + mainActiveChunk.getFirstPointIn());
         activeChunks.add(mainActiveChunk);
         testBlock = objectFactory.getStoneBlock();
+        testBlock2 = objectFactory.getWaterBlock();
+        sandBlock = objectFactory.getSandBlock();
+        dirtBlock = objectFactory.getDirtBlock();
+        stonePreparedBlock = objectFactory.getStoneBlockPrepared();
+        GravelBlock = objectFactory.getGravelBlock();
+        WhiteBlock = objectFactory.getWhiteBlock();
+        grassBlock = objectFactory.getGrassBlock();
+        brickBlock = objectFactory.getBrickBlock();
         testBlock.setGridPositon(new Vector3(10, 0, 10));
-        //activeChunks.addAll(chunkCulculator.generateChunks(mainActiveChunk));
+        testBlock2.setGridPositon(new Vector3(30, 0, 10));
+        sandBlock.setGridPositon(new Vector3(50, 0, 10));
+        dirtBlock.setGridPositon(new Vector3(70, 0, 10));
+        stonePreparedBlock.setGridPositon(new Vector3(90, 0, 10));
+        GravelBlock.setGridPositon(new Vector3(110, 0, 10));
+        WhiteBlock.setGridPositon(new Vector3(130, 0, 10));
+        grassBlock.setGridPositon(new Vector3(150, 0, 10));
+        brickBlock.setGridPositon(new Vector3(170, 0, 10));
     }
 
     @Override
     public void render() {
         chunkCulculator.processChunks();
-        int rendered = 0;
         for (MapObject obj : mapManager.getMap()) {
             if (chunkCulculator.cunkInScreen(obj)) {
                 context.getBatch().draw(backGround, obj.getTopLeftPoint().x,
                         obj.getTopLeftPoint().y);
-                rendered++;
             }
         }
-      //  System.out.println("rendered chunks:" + rendered);
-        /*for (Chunk chunk : activeChunks) {
-            for (int j = 0; j < chunk.getHeight(); j++) {
-                for (int i = 0; i < chunk.getWidth(); i++) {
-                    context.getBatch().draw(backGround, chunk.getFirstPointIn().x + i * AbstractGameObject.SCREEN_WIDTH2 + j * AbstractGameObject.SCREEN_WIDTH2,
-                            chunk.getFirstPointIn().y - i * AbstractGameObject.SCREEN_HEIGHT2 + j * AbstractGameObject.SCREEN_HEIGHT2 );
-                    if (i == 0 && j == 0) {
-                        // chunk.getFirstPointIn().x++;
-                    *//*System.out.println();
-                    System.out.println("draw on: x: " +  chunk.getFirstPointIn().x + i * AbstractGameObject.SCREEN_WIDTH2 + j * AbstractGameObject.SCREEN_WIDTH2);
-					System.err.println();*//*
-                    }
-                    context.getFont().draw(context.getBatch(), j + " " + i,
-                            chunk.getFirstPointIn().x + AbstractGameObject.SCREEN_WIDTH2 + i * AbstractGameObject.SCREEN_WIDTH2 + j * AbstractGameObject.SCREEN_WIDTH2,
-                            chunk.getFirstPointIn().y - i * AbstractGameObject.SCREEN_HEIGHT2 + j * AbstractGameObject.SCREEN_HEIGHT2 + AbstractGameObject.SCREEN_HEIGHT2);
-                    if (i == 0) {
-                        context.getBatch().draw(backGround1, chunk.getFirstPointIn().x + i * AbstractGameObject.SCREEN_WIDTH2 + j * AbstractGameObject.SCREEN_WIDTH2,
-                                chunk.getFirstPointIn().y - i * AbstractGameObject.SCREEN_HEIGHT2 + j * AbstractGameObject.SCREEN_HEIGHT2 + AbstractGameObject.SCREEN_HEIGHT2);
-                    }
-                    if (j == chunk.getHeight() - 1) {
-                        context.getBatch().draw(backGround0, chunk.getFirstPointIn().x + i * AbstractGameObject.SCREEN_WIDTH2 + j * AbstractGameObject.SCREEN_WIDTH2 + AbstractGameObject.SCREEN_WIDTH2,
-                                chunk.getFirstPointIn().y - i * AbstractGameObject.SCREEN_HEIGHT2 + j * AbstractGameObject.SCREEN_HEIGHT2 + AbstractGameObject.SCREEN_HEIGHT2);
-                    }
-
-
-                }
-            }
-        }*/
-
-
+        brickBlock.drawUp(context.getBatch());
+        grassBlock.drawUp(context.getBatch());
+        WhiteBlock.drawUp(context.getBatch());
+        GravelBlock.drawUp(context.getBatch());
+        stonePreparedBlock.drawUp(context.getBatch());
+        dirtBlock.drawUp(context.getBatch());
+        sandBlock.drawUp(context.getBatch());
+        testBlock2.drawUp(context.getBatch());
         testBlock.drawUp(context.getBatch());
     }
 

@@ -26,4 +26,10 @@ public class SpritesLoader {
 	public TextureRegion getSprite(String id) {
 		return atlas.findRegion(id);
 	}
+
+	public TextureRegion getSprite(String id,boolean flip) {
+		TextureRegion region = atlas.findRegion(id);
+		region.flip(flip,flip);
+		return region;
+	}
 }

@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by demos_000 on 03.09.2015.
+ * Created by Andrii_Korkoshko on 03.09.2015.
  */
 @Component
 public class StubMapProvider {
