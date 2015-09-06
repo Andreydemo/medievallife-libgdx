@@ -56,7 +56,9 @@ public class ContextConteiner {
 	@Autowired
 	private RenderingManager renderingManager;
 	@Autowired
-	private Logger logger;
+	public Logger logger;
+	@Autowired
+	MedievalLifeScene medievalLifeScene;
 	
 	@Autowired
 	private Player player; 
