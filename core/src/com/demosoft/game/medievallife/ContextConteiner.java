@@ -76,7 +76,7 @@ public class ContextConteiner {
 		viewport = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), camera);
 		inputProcessor.setCamera(camera);
 		addInputProcessor(inputProcessor);
-		logger.setCurrentLevel(LogLevel.DEBUG);
+		logger.setCurrentLevel(LogLevel.INFO);
 		contextActive = true;
 	}
 

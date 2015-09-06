@@ -194,7 +194,7 @@ public class MedievalLifeScene extends BaseScene {
                             light.setSoftnessLength(50);*/
                       //  }
                         Thread.sleep(500);
-                        context.logger.logInfo(String.valueOf(sunColor.a));
+                        context.logger.logDebug(String.valueOf(sunColor.a));
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }

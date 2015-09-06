@@ -2,6 +2,7 @@ package com.demosoft.game.medievallife.ui;
 
 import javax.annotation.PostConstruct;
 
+import com.badlogic.gdx.utils.Array;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -25,100 +26,112 @@ import com.demosoft.game.medievallife.spring.SpringTools;
 
 @Component
 public class DebugScene extends BaseScene {
-	Image screenBg;
-	TextureAtlas atlas;
+    Image screenBg;
+    TextureAtlas atlas;
 
-	FlippedStage stage;
-	Skin skin = new Skin(Gdx.files.internal("uiskin.json"));
-	SelectBox<String> debugLevel = new SelectBox<String>(skin);
-	
-	public static final Vector2 debugSize = new Vector2(800, 600);
+    FlippedStage stage;
+    Skin skin = new Skin(Gdx.files.internal("uiskin.json"));
+    SelectBox<String> debugLevel = new SelectBox<String>(skin);
+    Vector2 debugPosition = new Vector2(300,100);
 
-	@Autowired
-	private ContextConteiner context;
+    public static final Vector2 debugSize = new Vector2(800, 600);
 
-	@Autowired
-	private FlagController flags;
+    @Autowired
+    private ContextConteiner context;
 
-	@Autowired
-	private Logger logger;
+    @Autowired
+    private FlagController flags;
 
-	@PostConstruct
-	private void init() {
-		debugLevel.setItems(new String[] {"Item 1", "Item 2", "Item 3"});
-		debugLevel.setSelectedIndex(0);
-		debugLevel.setBounds(300, 100, 200, 50);
-		debugLevel.addListener(new ClickListener(){
-			@Override
-			public void clicked(InputEvent event, float x, float y) {
-				System.out.println("->" + event);
-				super.clicked(event, x, y);
-			}
-		});
-		atlas = new TextureAtlas(Gdx.files.internal("newUi.pack"));
-		screenBg = new Image(atlas.findRegion("screen-bg"));
-		screenBg.setSize(debugSize.x, debugSize.y);
-		stage = new FlippedStage(context.getViewport());
-		stage.setFlliped(true);
-		if( Gdx.input.getInputProcessor() instanceof InputMultiplexer){
-			((InputMultiplexer)Gdx.input.getInputProcessor()).addProcessor(0,stage);
-		}
-		stage.addActor(screenBg);
-		stage.addActor(debugLevel);
-		stage.addListener(new ClickListener(){
-			@Override
-			public void clicked(InputEvent event, float x, float y) {
-				System.out.println("-> stage " + event);
-				super.clicked(event, x, y);
-			}
-		});
-	}
+    @Autowired
+    private Logger logger;
 
-	@Override
-	public void render(float delta) {
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		context.getActiveScene().render(delta);
-		if (Gdx.input.isKeyJustPressed(Input.Keys.TAB)) {
-			if (flags.debugEnabled) {
-				context.loadActiveScene();
-				flags.debugEnabled = false;
-			} else {
-				context.saveActiveScene();
-				context.getGame().setScreen(SpringTools.getBean(DebugScene.class));
-				flags.debugEnabled = true;
-			}
-		}
-		context.getCameraManager().flipCamera(false);
-		foolowToCamera(screenBg);
-		stage.act();
-		stage.draw();
-		super.render(delta);
-		context.getCameraManager().flipCamera(true);
-		logger.logDebug(context.getCamera().position + " " + (float) (screenBg.getX() + screenBg.getWidth() / 2) + ":" + (float) (screenBg.getY() + screenBg.getHeight() / 2));
-	}
+    @PostConstruct
+    private void init() {
+        debugLevel.setItems(new String[]{"Item 1", "Item 2", "Item 3"});
+        debugLevel.setSelectedIndex(0);
+        debugLevel.setDebug(true);
+        debugLevel.setBounds(debugPosition.x, debugPosition.y, 200, 50);
+        debugLevel.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                System.out.println("->" + event + "x: " + x + " y: " + y);
+                super.clicked(event, x, y);
+            }
+        });
+        atlas = new TextureAtlas(Gdx.files.internal("newUi.pack"));
+        screenBg = new Image(atlas.findRegion("screen-bg"));
+        screenBg.setSize(debugSize.x, debugSize.y);
+        stage = new FlippedStage(context.getViewport());
+        stage.setFlliped(true);
+        if (Gdx.input.getInputProcessor() instanceof InputMultiplexer) {
+            ((InputMultiplexer) Gdx.input.getInputProcessor()).addProcessor(0, stage);
+        }
+        stage.addActor(screenBg);
+        stage.addActor(debugLevel);
+        stage.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                System.out.println("-> stage " + event + "x: " + x + " y: " + y);
+                super.clicked(event, x, y);
+            }
+        });
+    }
 
-	@Override
-	public void resize(int width, int height) {
-		super.resize(width, height);
-	}
+    @Override
+    public void render(float delta) {
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        context.getActiveScene().render(delta);
+        if (Gdx.input.isKeyJustPressed(Input.Keys.TAB)) {
+            if (flags.debugEnabled) {
+                context.loadActiveScene();
+                flags.debugEnabled = false;
+            } else {
+                context.saveActiveScene();
+                context.getGame().setScreen(SpringTools.getBean(DebugScene.class));
+                flags.debugEnabled = true;
+            }
+        }
+        context.getCameraManager().flipCamera(false);
+        foolowToCamera(screenBg);
+        foollowToCamera(debugLevel);
+        stage.act();
+        stage.draw();
+        super.render(delta);
+        context.getCameraManager().flipCamera(true);
+        logger.logDebug(context.getCamera().position + " " + (float) (screenBg.getX() + screenBg.getWidth() / 2) + ":" + (float) (screenBg.getY() + screenBg.getHeight() / 2));
+    }
 
-	@Override
-	public void dispose() {
-		stage.dispose();
-	}
+    @Override
+    public void resize(int width, int height) {
+        super.resize(width, height);
+    }
 
-	public Vector2 getImageCentre(Image image) {
-		return new Vector2((float) (image.getX() + image.getWidth() / 2), (float) (image.getY() + image.getHeight() / 2));
-	}
-	
-	public void foolowToCamera(Image image){
-		Vector2 imageCentre = getImageCentre(image);
-		Vector2 diff = new Vector2(context.getCamera().position.x -imageCentre.x, context.getCamera().position.y -imageCentre.y);
-		image.setX(image.getX() +diff.x);
-		image.setY(image.getY() +diff.y);
-		
-	}
-	
-	
+    @Override
+    public void dispose() {
+        stage.dispose();
+    }
+
+    public Vector2 getImageCentre(Image image) {
+        return new Vector2((float) (image.getX() + image.getWidth() / 2), (float) (image.getY() + image.getHeight() / 2));
+    }
+    public Vector2 getImageCentre(SelectBox image) {
+        return new Vector2((float) (image.getX() + image.getWidth() / 2), (float) (image.getY() + image.getHeight() / 2));
+    }
+
+    public void foolowToCamera(Image image) {
+        Vector2 imageCentre = getImageCentre(image);
+        Vector2 diff = new Vector2(context.getCamera().position.x - imageCentre.x, context.getCamera().position.y - imageCentre.y);
+        image.setX(image.getX() + diff.x);
+        image.setY(image.getY() + diff.y);
+
+    }
+
+    public void foollowToCamera(SelectBox box) {
+        Vector2 imageCentre = getImageCentre(box);
+        Vector2 diff = new Vector2(context.getCamera().position.x  - context.getCamera().viewportWidth/2, context.getCamera().position.y  - context.getCamera().viewportHeight/2);
+        box.setX(debugPosition.x + diff.x);
+        box.setY(debugPosition.y + diff.y);
+    }
+
 
 }
