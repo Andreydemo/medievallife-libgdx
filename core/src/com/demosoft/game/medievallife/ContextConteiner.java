@@ -4,6 +4,7 @@ import java.nio.ByteBuffer;
 
 import javax.annotation.PostConstruct;
 
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -30,6 +31,8 @@ public class ContextConteiner {
 
 	private InputMultiplexer inpMulPlex;
 	private IsometricCamera camera;
+	private OrthographicCamera uiCamera =new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+	private Viewport uiViewport;
 	private Viewport viewport;
 	private SpriteBatch batch;
 	public static final String BACKGROUND_SPRITE_ID_0 = "b2-0-0";
@@ -73,6 +76,8 @@ public class ContextConteiner {
 		font = new BitmapFont(true);
 		camera = cameraManager.getCamera();
 		camera.setToOrtho(true, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		uiCamera.setToOrtho(true, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		uiViewport = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), uiCamera);
 		viewport = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), camera);
 		inputProcessor.setCamera(camera);
 		addInputProcessor(inputProcessor);
@@ -262,5 +267,21 @@ public class ContextConteiner {
 
 	public boolean isContextActive() {
 		return contextActive;
+	}
+
+	public OrthographicCamera getUiCamera() {
+		return uiCamera;
+	}
+
+	public void setUiCamera(OrthographicCamera uiCamera) {
+		this.uiCamera = uiCamera;
+	}
+
+	public Viewport getUiViewport() {
+		return uiViewport;
+	}
+
+	public void setUiViewport(Viewport uiViewport) {
+		this.uiViewport = uiViewport;
 	}
 }
