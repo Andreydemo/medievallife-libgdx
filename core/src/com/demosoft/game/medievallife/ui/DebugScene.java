@@ -31,7 +31,7 @@ public class DebugScene extends BaseScene {
     FlippedStage stage;
     Skin skin = new Skin(Gdx.files.internal("uiskin.json"));
     SelectBox<String> debugLevel = new SelectBox<String>(skin);
-    Vector2 debugPosition = new Vector2(500, 500);
+    Vector2 debugPosition = new Vector2(500, Gdx.graphics.getHeight() - 500);
 
     public static final Vector2 debugSize = new Vector2(800, 600);
 
@@ -60,6 +60,7 @@ public class DebugScene extends BaseScene {
         atlas = new TextureAtlas(Gdx.files.internal("newUi.pack"));
         screenBg = new Image(atlas.findRegion("screen-bg"));
         screenBg.setSize(debugSize.x, debugSize.y);
+        foolowToCamera(screenBg);
         stage = new FlippedStage(context.getUiViewport());
         stage.setFlliped(true);
         if (Gdx.input.getInputProcessor() instanceof InputMultiplexer) {
@@ -90,6 +91,7 @@ public class DebugScene extends BaseScene {
     @Override
     public void render(float delta) {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        context.getUiCamera().setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         context.getActiveScene().render(delta);
         if (Gdx.input.isKeyJustPressed(Input.Keys.TAB)) {
             if (flags.debugEnabled) {
@@ -99,11 +101,11 @@ public class DebugScene extends BaseScene {
                 context.saveActiveScene();
                 context.getGame().setScreen(SpringTools.getBean(DebugScene.class));
                 flags.debugEnabled = true;
+
             }
         }
-        context.getCameraManager().flipCamera(false);
-        foolowToCamera(screenBg);
-        foollowToCamera(debugLevel);
+       /* foolowToCamera(screenBg);
+        foollowToCamera(debugLevel);*/
         stage.getBatch().setProjectionMatrix(context.getUiCamera().combined);
         stage.act();
         stage.draw();
@@ -115,7 +117,7 @@ public class DebugScene extends BaseScene {
         }*/
 
         super.render(delta);
-        context.getCameraManager().flipCamera(true);
+        context.getUiCamera().setToOrtho(true, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         logger.logDebug(context.getCamera().position + " " + (float) (screenBg.getX() + screenBg.getWidth() / 2) + ":" + (float) (screenBg.getY() + screenBg.getHeight() / 2));
     }
 
@@ -138,10 +140,10 @@ public class DebugScene extends BaseScene {
     }
 
     public void foolowToCamera(Image image) {
-      /*  Vector2 imageCentre = getImageCentre(image);
+        Vector2 imageCentre = getImageCentre(image);
         Vector2 diff = new Vector2(context.getCamera().position.x - imageCentre.x, context.getCamera().position.y - imageCentre.y);
         image.setX(image.getX() + diff.x);
-        image.setY(image.getY() + diff.y);*/
+        image.setY(image.getY() + diff.y);
 
     }
 
