@@ -1,6 +1,8 @@
 package com.demosoft.game.medievallife.core.render;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector3;
 import com.demosoft.game.medievallife.ContextConteiner;
 import com.demosoft.game.medievallife.core.*;
@@ -95,6 +97,7 @@ public class BackgroundRenderListener extends RenderListener {
         sandBlock.drawUp(context.getBatch());
         testBlock2.drawUp(context.getBatch());
         testBlock.drawUp(context.getBatch());
+
     }
 
 }

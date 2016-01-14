@@ -1,15 +1,19 @@
 package com.demosoft.game.medievallife.core;
 
+import com.badlogic.gdx.physics.box2d.Body;
+import com.demosoft.game.medievallife.SpritesLoader;
+import com.demosoft.game.medievallife.WorldContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import com.demosoft.game.medievallife.SpritesLoader;
 
 @Component
 public class GameObjectFactory {
 
     public static final String DIRT_BCLOCK_TYPE = "dirt";
     public static final String STONE_BCLOCK_TYPE = "stone";
+
+    @Autowired
+    private WorldContext worldContext;
 
     @Autowired
     private SpritesLoader spritesLoader;
@@ -20,6 +24,7 @@ public class GameObjectFactory {
         block.setUp(spritesLoader.getSprite("b2-0-1"));
         block.setRight(spritesLoader.getSprite("b2-0-0"));
         block.setTypeName(DIRT_BCLOCK_TYPE);
+        initBlockInWorld(block);
         return block;
     }
 
@@ -29,6 +34,7 @@ public class GameObjectFactory {
         block.setUp(spritesLoader.getSprite("b7-0-1"));
         block.setRight(spritesLoader.getSprite("b7-0-0"));
         block.setTypeName(DIRT_BCLOCK_TYPE);
+        initBlockInWorld(block);
         return block;
     }
 
@@ -38,6 +44,7 @@ public class GameObjectFactory {
         block.setUp(spritesLoader.getSprite("b6-0-1"));
         block.setRight(spritesLoader.getSprite("b6-0-0"));
         block.setTypeName(DIRT_BCLOCK_TYPE);
+        initBlockInWorld(block);
         return block;
     }
 
@@ -47,6 +54,7 @@ public class GameObjectFactory {
         block.setUp(spritesLoader.getSprite("b5-0-1"));
         block.setRight(spritesLoader.getSprite("b5-0-0"));
         block.setTypeName(DIRT_BCLOCK_TYPE);
+        initBlockInWorld(block);
         return block;
     }
 
@@ -56,22 +64,27 @@ public class GameObjectFactory {
         block.setUp(spritesLoader.getSprite("b44-1-1"));
         block.setRight(spritesLoader.getSprite("b44-1-0"));
         block.setTypeName(DIRT_BCLOCK_TYPE);
+        initBlockInWorld(block);
         return block;
     }
+
     public Block getGrassBlock() {
         Block block = new Block();
-        block.setLeft(spritesLoader.getSprite("b1-0-2",true));
+        block.setLeft(spritesLoader.getSprite("b1-0-2", true));
         block.setUp(spritesLoader.getSprite("b1-0-1"));
-        block.setRight(spritesLoader.getSprite("b1-0-0",true));
+        block.setRight(spritesLoader.getSprite("b1-0-0", true));
         block.setTypeName(DIRT_BCLOCK_TYPE);
+        initBlockInWorld(block);
         return block;
     }
+
     public Block getBrickBlock() {
         Block block = new Block();
         block.setLeft(spritesLoader.getSprite("b20-0-2"));
         block.setUp(spritesLoader.getSprite("b20-0-1"));
         block.setRight(spritesLoader.getSprite("b20-0-0"));
         block.setTypeName(DIRT_BCLOCK_TYPE);
+        initBlockInWorld(block);
         return block;
     }
 
@@ -81,6 +94,7 @@ public class GameObjectFactory {
         block.setUp(spritesLoader.getSprite("b9-0-1"));
         block.setRight(spritesLoader.getSprite("b9-0-0"));
         block.setTypeName(DIRT_BCLOCK_TYPE);
+        initBlockInWorld(block);
         return block;
     }
 
@@ -90,6 +104,7 @@ public class GameObjectFactory {
         block.setUp(spritesLoader.getSprite("b8-0-1"));
         block.setRight(spritesLoader.getSprite("b8-0-0"));
         block.setTypeName(DIRT_BCLOCK_TYPE);
+        initBlockInWorld(block);
         return block;
     }
 
@@ -103,6 +118,13 @@ public class GameObjectFactory {
                 break;
         }
         return null;
+    }
+
+    private void initBlockInWorld(Block block) {
+        block.setLeftBody(worldContext.getNewBody());
+        block.setRightBody(worldContext.getNewBody());
+        //block.setLeftFixture(body.createFixture(block.getLeftChainShape(), 25));
+        block.setWorldLink(worldContext);
     }
 
 }

@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import box2dLight.PointLight;
+import com.badlogic.gdx.graphics.Color;
+import com.demosoft.game.medievallife.CommonUtils;
+import com.demosoft.game.medievallife.MedievalLifeScene;
 import org.springframework.stereotype.Component;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -91,6 +95,8 @@ public class Player {
     private Vector3 gridPositon = new Vector3(-5, 90, 0);
     private Vector3 worldPositon;
 
+    private PointLight viewArea;
+
     public Player() {
         Vector3 worldPositon = new Vector3(gridPositon);
         IsometricCamera.gridToWorld(worldPositon);
@@ -104,6 +110,9 @@ public class Player {
         IsometricCamera.gridToWorld(worldPositon);
         this.worldPositon = worldPositon;
         this.worldPositon.add(-PLAYER_WIDTH2, -PLAYER_HEIGHT, 0);
+        if (viewArea != null) {
+            viewArea.setPosition(CommonUtils.convert(worldPositon));
+        }
     }
 
     public void addDownTextures(TextureRegion region) {
@@ -435,5 +444,13 @@ public class Player {
 
     public void setInJump(boolean inJump) {
         this.inJump = inJump;
+    }
+
+    public PointLight getViewArea() {
+        return viewArea;
+    }
+
+    public void setViewArea(PointLight viewArea) {
+        this.viewArea = viewArea;
     }
 }

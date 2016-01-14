@@ -83,8 +83,8 @@ public class CameraManager {
 	}
 
 	public void focusOnPlayer(Player player){
-		camera.position.x = player.getWorldPositon().x+Player.PLAYER_WIDTH2;
-		camera.position.y = player.getWorldPositon().y + Player.PLAYER_WIDTH2;
+		camera.position.x = player.getWorldPositon().x;
+		camera.position.y = player.getWorldPositon().y;
 	}
 
 	public boolean isFlipped() {

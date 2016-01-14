@@ -62,7 +62,7 @@ public class IsometricCamera extends OrthographicCamera {
 	}
 
 	public static void main(String[] args) {
-		Vector3 p1 = new Vector3(0, 0, 0);
+		Vector3 p1 = new Vector3(10, 0, 10);
 		Vector3 p2 = new Vector3(10, 0, 0);
 		Vector3 p3 = new Vector3(0, 10, 0);
 		Vector3 p4 = new Vector3(10, 10, 0);

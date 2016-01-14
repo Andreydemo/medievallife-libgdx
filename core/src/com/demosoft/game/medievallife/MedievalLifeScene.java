@@ -1,20 +1,23 @@
 package com.demosoft.game.medievallife;
 
-import box2dLight.*;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
+import box2dLight.DirectionalLight;
+import box2dLight.Light;
+import box2dLight.PointLight;
+import box2dLight.RayHandler;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.physics.box2d.*;
 import com.demosoft.game.medievallife.core.BaseScene;
 import com.demosoft.game.medievallife.core.IsometricCamera;
+import com.demosoft.game.medievallife.player.Player;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 
@@ -23,15 +26,17 @@ public class MedievalLifeScene extends BaseScene {
 
     @Autowired
     private ContextConteiner context;
-    static RayHandler rayHandler;
-    World world;
-    Body groundBody;
-    Body groundBody2;
+    @Autowired
+    private Player player;
+
+    @Autowired
+    private WorldContext worldContext;
+    public static RayHandler rayHandler;
 
     boolean firstShow = true;
     float sunDirection = -90f;
     static final float RADIUS = 1f;
-    static final int RAYS_PER_BALL = 128;
+    public static final int RAYS_PER_BALL = 128;
     static final int BALLSNUM = 5;
     static final float LIGHT_DISTANCE = 16f;
     ArrayList<Light> lights = new ArrayList<Light>(BALLSNUM);
@@ -56,7 +61,7 @@ public class MedievalLifeScene extends BaseScene {
             // ground and create a new body
             boxBodyDef.position.x = -20 + (float) (Math.random() * 40);
             boxBodyDef.position.y = 10 + (float) (Math.random() * 15);
-            Body boxBody = world.createBody(boxBodyDef);
+            Body boxBody = worldContext.getWorld().createBody(boxBodyDef);
             boxBody.createFixture(def);
             balls.add(boxBody);
         }
@@ -90,7 +95,7 @@ public class MedievalLifeScene extends BaseScene {
 
     private void createPhysicsWorld() {
 
-        world = new World(new Vector2(0, 0), false);
+      /*  world = new World(new Vector2(0, 0), false);
 
         ChainShape chainShape = new ChainShape();
         chainShape.createLoop(new Vector2[]{
@@ -120,19 +125,20 @@ public class MedievalLifeScene extends BaseScene {
                 new Vector2(240, -160)
 
         });
-        groundBody2 =  world.createBody(chainBodyDef);
-       // PolygonShape groundBox = new PolygonShape();
+        groundBody2 = world.createBody(chainBodyDef);
+        // PolygonShape groundBox = new PolygonShape();
 
         //groundBox.setAsBox(100,100);
-         groundBody.createFixture(chainShape, 25);
+        groundBody.createFixture(chainShape, 25);
         groundBody2.createFixture(chainShape1, 25);
 
-        chainShape.dispose();
-       // createBoxes();
+        chainShape.dispose();*/
+        // createBoxes();
     }
 
     static DirectionalLight light;
     static float sunDirecation = -89;
+
 
     public void create() {
         createPhysicsWorld();
@@ -141,24 +147,26 @@ public class MedievalLifeScene extends BaseScene {
         RayHandler.useDiffuseLight(true);
 
 
-        rayHandler = new RayHandler(world);
+        rayHandler = new RayHandler(worldContext.getWorld());
+        player.setViewArea(new PointLight(rayHandler, RAYS_PER_BALL, new Color(1, 1, 1, 1), 1000, player.getWorldPositon().x, player.getWorldPositon().y));
         rayHandler.setAmbientLight(1f, 1f, 1f, 1f);
         rayHandler.setBlurNum(3);
         //rayHandler.setShadows(true);
 
-            //initPointLights();
-        PointLight pout =  new PointLight(rayHandler, RAYS_PER_BALL, new Color(1, 1, 1, 1), 1000, 200, 200);
-       // PointLight poutq =  new PointLight(rayHandler, RAYS_PER_BALL, new Color(1, 1, 1, 1), 2000, 0, -100);
-       // pout.setSoftnessLength(0);
-       // ConeLight coneLight = new ConeLight(rayHandler, RAYS_PER_BALL, new Color(1, 1, 1, 1), 600, 1000, 1000, -89, 30);
-       // coneLight.setSoftnessLength(0);
+        //initPointLights();
+        //PointLight pout = new PointLight(rayHandler, RAYS_PER_BALL, new Color(1, 1, 1, 1), 1000, 200, 200);
+
+        // PointLight poutq =  new PointLight(rayHandler, RAYS_PER_BALL, new Color(1, 1, 1, 1), 2000, 0, -100);
+        // pout.setSoftnessLength(0);
+        // ConeLight coneLight = new ConeLight(rayHandler, RAYS_PER_BALL, new Color(1, 1, 1, 1), 600, 1000, 1000, -89, 30);
+        // coneLight.setSoftnessLength(0);
         rayHandler.setCombinedMatrix(context.getCamera());
         // groundBody.setActive(false);
         //light = new DirectionalLight(rayHandler, 4 * RAYS_PER_BALL, sunColor, sunDirecation);
-       // light.setXray(true);
-       // light.setSoft(true);
-     //   light.setSoftnessLength(50);
-       // light.setSoftnessLength(0);
+        // light.setXray(true);
+        // light.setSoft(true);
+        //   light.setSoftnessLength(50);
+        // light.setSoftnessLength(0);
         Thread t = new Thread(new Runnable() {
             boolean sunRise = false;
 
@@ -169,11 +177,11 @@ public class MedievalLifeScene extends BaseScene {
 
                         if (!sunRise) {
                             sunColor.a -= 0.01f;
-                            sunDirecation+=1;
+                            sunDirecation += 1;
                         }
                         if (sunRise) {
                             sunColor.a += 0.01f;
-                            sunDirecation-=1;
+                            sunDirecation -= 1;
                         }
 
                         if (sunColor.a >= 0.00f && sunColor.a < 0.15f) {
@@ -182,17 +190,17 @@ public class MedievalLifeScene extends BaseScene {
                         if (sunColor.a >= 0.99f) {
                             sunRise = false;
                         }
-                        sunColor.r =  sunColor.a;
-                        sunColor.g =  sunColor.a;
-                        sunColor.b =  sunColor.a;
-                      //  synchronized (light) {
-                            rayHandler.setAmbientLight(sunColor.r,sunColor.g,sunColor.b,1f);
+                        sunColor.r = sunColor.a;
+                        sunColor.g = sunColor.a;
+                        sunColor.b = sunColor.a;
+                        //  synchronized (light) {
+                        rayHandler.setAmbientLight(sunColor.r, sunColor.g, sunColor.b, 1f);
                             /*light.remove();
                             light = new DirectionalLight(rayHandler, 4 * RAYS_PER_BALL, sunColor, sunDirecation);
                             light.setXray(true);
                             light.setSoft(true);
                             light.setSoftnessLength(50);*/
-                      //  }
+                        //  }
                         Thread.sleep(500);
                         context.logger.logDebug(String.valueOf(sunColor.a));
                     } catch (InterruptedException e) {
@@ -204,7 +212,7 @@ public class MedievalLifeScene extends BaseScene {
         t.setDaemon(true);
         t.start();
         // DirectionalLight light2 = new DirectionalLight(rayHandler, 4 * RAYS_PER_BALL, new Color(1, 1, 1, 1), 0);
-       // lights.add(light);
+        // lights.add(light);
     }
 
     boolean sunRise = false;
@@ -213,9 +221,9 @@ public class MedievalLifeScene extends BaseScene {
         /** BOX2D LIGHT STUFF BEGIN */
         rayHandler.setCombinedMatrix(context.getCamera());
 //        synchronized (light) {
-            rayHandler.update();
-            rayHandler.render();
-       // }
+        rayHandler.update();
+        rayHandler.render();
+        // }
         /** BOX2D LIGHT STUFF END */
     }
 
@@ -248,7 +256,7 @@ public class MedievalLifeScene extends BaseScene {
         context.getBatch().end();
         context.getBatch().begin();
         renderLight();
-        debugRenderer.render(world,context.getCamera().combined);
+        debugRenderer.render(worldContext.getWorld(), context.getCamera().combined);
         context.getBatch().end();
         super.render(delta);
     }
