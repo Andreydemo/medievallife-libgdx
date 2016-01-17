@@ -98,28 +98,45 @@ public class Block extends AbstractGameObject {
         rightChainShape = new ChainShape();
         leftChainShape.createLoop(new Vector2[]{
                 new Vector2(worldPositon.x, worldPositon.y + SCREEN_HEIGHT + SCREEN_HEIGHT2),
-                new Vector2(worldPositon.x, worldPositon.y + SCREEN_HEIGHT2),
-                new Vector2(worldPositon.x + SCREEN_WIDTH2, worldPositon.y + SCREEN_HEIGHT),
+
+                new Vector2(worldPositon.x, worldPositon.y + SCREEN_HEIGHT2 + SCREEN_HEIGHT4),
+                new Vector2(worldPositon.x + SCREEN_WIDTH8, worldPositon.y + SCREEN_HEIGHT2 + SCREEN_HEIGHT8),
+
+
+                new Vector2(worldPositon.x + SCREEN_WIDTH2 - SCREEN_WIDTH8, worldPositon.y + SCREEN_HEIGHT - SCREEN_HEIGHT8),
+                new Vector2(worldPositon.x + SCREEN_WIDTH2, worldPositon.y + SCREEN_HEIGHT + SCREEN_HEIGHT4),
 
                 new Vector2(worldPositon.x + SCREEN_WIDTH2, worldPositon.y + SCREEN_HEIGHT + SCREEN_HEIGHT),
                 new Vector2(worldPositon.x + SCREEN_WIDTH2 - 1, worldPositon.y + SCREEN_HEIGHT + SCREEN_HEIGHT - 1),
 
-                new Vector2(worldPositon.x + SCREEN_WIDTH2 - 1, worldPositon.y + SCREEN_HEIGHT + 1),
-                new Vector2(worldPositon.x + 1, worldPositon.y + SCREEN_HEIGHT2 + 1),
+                new Vector2(worldPositon.x + SCREEN_WIDTH2 - 1, worldPositon.y + SCREEN_HEIGHT + SCREEN_HEIGHT4 + 1),
+                new Vector2(worldPositon.x + SCREEN_WIDTH2 - SCREEN_WIDTH8 - 1, worldPositon.y + SCREEN_HEIGHT - SCREEN_HEIGHT8 + 1),
+
+                new Vector2(worldPositon.x + SCREEN_WIDTH8 + 1, worldPositon.y + SCREEN_HEIGHT2 + SCREEN_HEIGHT8 + 1),
+                new Vector2(worldPositon.x + 1, worldPositon.y + SCREEN_HEIGHT2 + SCREEN_HEIGHT4 + 1),
+
                 new Vector2(worldPositon.x + 1, worldPositon.y + SCREEN_HEIGHT + SCREEN_HEIGHT2 - 1)
         });
 
         rightChainShape.createLoop(new Vector2[]{
                 new Vector2(worldPositon.x + SCREEN_WIDTH2, worldPositon.y + SCREEN_HEIGHT + SCREEN_HEIGHT),
-                new Vector2(worldPositon.x + SCREEN_WIDTH2, worldPositon.y + SCREEN_HEIGHT),
-                new Vector2(worldPositon.x + SCREEN_WIDTH, worldPositon.y + SCREEN_HEIGHT2),
+
+                new Vector2(worldPositon.x + SCREEN_WIDTH2, worldPositon.y + SCREEN_HEIGHT + SCREEN_HEIGHT4),
+                new Vector2(worldPositon.x + SCREEN_WIDTH2 + SCREEN_WIDTH8, worldPositon.y + SCREEN_HEIGHT - SCREEN_HEIGHT8),
+
+                new Vector2(worldPositon.x + SCREEN_WIDTH - SCREEN_WIDTH8, worldPositon.y + SCREEN_HEIGHT2 + SCREEN_HEIGHT8),
+                new Vector2(worldPositon.x + SCREEN_WIDTH, worldPositon.y + SCREEN_HEIGHT2 + SCREEN_HEIGHT4),
 
                 new Vector2(worldPositon.x + SCREEN_WIDTH, worldPositon.y + SCREEN_HEIGHT + SCREEN_HEIGHT2),
                 new Vector2(worldPositon.x + SCREEN_WIDTH - 1, worldPositon.y + SCREEN_HEIGHT + SCREEN_HEIGHT2 - 1),
 
-                new Vector2(worldPositon.x + SCREEN_WIDTH - 1, worldPositon.y + SCREEN_HEIGHT2 + 1 ),
-                new Vector2(worldPositon.x + SCREEN_WIDTH2 + 1 , worldPositon.y + SCREEN_HEIGHT + 1 ),
-                new Vector2(worldPositon.x + SCREEN_WIDTH2 + 1 , worldPositon.y + SCREEN_HEIGHT + SCREEN_HEIGHT - 1 ),
+                new Vector2(worldPositon.x + SCREEN_WIDTH - 1, worldPositon.y + SCREEN_HEIGHT2 + SCREEN_HEIGHT4 + 1),
+                new Vector2(worldPositon.x + SCREEN_WIDTH - SCREEN_WIDTH8 - 1, worldPositon.y + SCREEN_HEIGHT2 + SCREEN_HEIGHT8 + 1),
+
+                new Vector2(worldPositon.x + SCREEN_WIDTH2 + SCREEN_WIDTH8 + 1, worldPositon.y + SCREEN_HEIGHT - SCREEN_HEIGHT8 + 1),
+                new Vector2(worldPositon.x + SCREEN_WIDTH2 + 1, worldPositon.y + SCREEN_HEIGHT + SCREEN_HEIGHT4 + 1),
+
+                new Vector2(worldPositon.x + SCREEN_WIDTH2 + 1, worldPositon.y + SCREEN_HEIGHT + SCREEN_HEIGHT - 1),
         });
 
         if (leftBody != null && leftFixture != null) {

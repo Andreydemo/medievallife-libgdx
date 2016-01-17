@@ -25,6 +25,7 @@ public abstract class AbstractGameObject {
 	public static final int SCREEN_WIDTH2 = SCREEN_WIDTH / 2;
 	/** A quarter (1/4) of SCREEN_WIDTH. The short form of: SCREEN_WIDTH/4 */
 	public static final int SCREEN_WIDTH4 = SCREEN_WIDTH / 4;
+	public static final int SCREEN_WIDTH8 = SCREEN_WIDTH / 8;
 
 	/**
 	 * The height (y-axis) of the sprite size
@@ -34,6 +35,7 @@ public abstract class AbstractGameObject {
 	public static final int SCREEN_HEIGHT2 = SCREEN_HEIGHT / 2;
 	/** A quarter (1/4) of SCREEN_HEIGHT. The short form of: SCREEN_WIDTH/4 */
 	public static final int SCREEN_HEIGHT4 = SCREEN_HEIGHT / 4;
+	public static final int SCREEN_HEIGHT8 = SCREEN_HEIGHT / 8;
 
 	/**
 	 * The game spaces dimension in pixel (edge length). 1 game meter ^= 1
